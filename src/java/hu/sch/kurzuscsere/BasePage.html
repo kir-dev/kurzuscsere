@@ -1,0 +1,24 @@
+<!DOCTYPE html> 
+<html xmlns:wicket="http://wicket.apache.org"> 
+    <head> 
+        <meta charset="UTF-8"> 
+        <meta name="description" content="Put your description here!" /> 
+    <wicket:head> 
+        <wicket:link> 
+            <link rel="stylesheet" type="text/css" href="style.css"/> 
+        </wicket:link> 
+    </wicket:head> 
+</head> 
+<body> 
+    <header wicket:id="headerpanel" />
+    <div wicket:id="feedbackPanel"></div>
+    
+    <section class="content_container"> 
+        <wicket:child/> 
+    </section> 
+    
+    <div wicket:id="lessonpanel"></div>
+    
+    <footer wicket:id="footerpanel" /> 
+</body> 
+</html>
