@@ -18,7 +18,8 @@ public class HomePage extends BasePage {
 
     public HomePage() {
         add(new Label("message", "Kurzuscsere"));
-        add(lsnPanel);
+        // ide raktam be ezt a cuccost 
+        add(lsnPanel.setVisible(aps.isLoggedIn()));
 
     }
     
