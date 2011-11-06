@@ -34,6 +34,8 @@ public final class LoginPanel extends Panel {
     @Override
     protected void onInitialize() {
         super.onInitialize();
+        
+        
 
         final AppSession aps = (AppSession) getSession();
         final Form loginForm = new Form("form");
@@ -52,10 +54,8 @@ public final class LoginPanel extends Panel {
                 aps.setUserName(null);
                 loginForm.setVisible(true);
                 logOutForm.setVisible(false);
-                
+               
             }
-            
-            
         });
 
         PropertyModel userNameModel = new PropertyModel(this, "uname");
@@ -72,10 +72,15 @@ public final class LoginPanel extends Panel {
                     unameLblText = aps.getUserName();
                     loginForm.setVisible(false);
                     logOutForm.setVisible(true);
+                    
+                    
                 }
             }
         });
 
-    }
-
+    } 
+    
+    
 }
+
+

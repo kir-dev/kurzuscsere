@@ -17,11 +17,18 @@ import org.apache.wicket.markup.html.panel.FeedbackPanel;
 
 public abstract class BasePage extends WebPage {
 
+  
+    
     public BasePage() { 
         super(); 
-        add(new HeaderPanel("headerpanel", "Welcome To Kurzuscsere")); 
-        add(new LessonPanel("lessonpanel"));
-        add(new FooterPanel("footerpanel", "Powered by Wicket and the NetBeans Wicket Plugin"));
+        add(new LoginPanel("loginpanel"));
+       
+        add(new FooterPanel("footerpanel", "Powered by Kir-Dev and created by Kresshy"));
+        
+        //final AppSession aps = (AppSession) getSession();
+        
+        /*if (aps.isLoggedIn()) lsnPanel.setFormVisibility(true);
+        else lsnPanel.setFormVisibility(false);*/
         
         add(new FeedbackPanel("feedbackPanel"));
     } 

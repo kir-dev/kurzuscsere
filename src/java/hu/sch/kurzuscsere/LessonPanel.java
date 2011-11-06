@@ -6,10 +6,7 @@ package hu.sch.kurzuscsere;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
@@ -34,6 +31,11 @@ public final class LessonPanel extends Panel {
     String timeFrom;
     String timeTo;
     Lesson newLesson;
+    Form lessonForm;
+
+    public Form getLessonForm() {
+        return lessonForm;
+    }
     private static final String dateFormat = "yyyy.MM.dd HH:mm";
 
     public LessonPanel(String id) {
@@ -45,10 +47,12 @@ public final class LessonPanel extends Panel {
     protected void onInitialize() {
         super.onInitialize();
 
+        final AppSession aps = (AppSession) getSession();
         final List<Lesson> lessonAdapter = ((WicketApplication) getApplication()).getLessons();
         newLesson = new Lesson();
-        Form lessonForm = new Form("lessonform");
+        lessonForm = new Form("lessonform");
         add(lessonForm);
+
 
         /*<input type="text" wicket:id="lessonname"></input>
         <input type="text" wicket:id="coursefrom"></input>
@@ -86,7 +90,7 @@ public final class LessonPanel extends Panel {
 
                     lessonAdapter.add(newLesson);
                     info(newLesson.toString());
-                    
+
                 } catch (ParseException ex) {
                     error("DATEFORMAT KOCSOG"); //Logger.getLogger(LessonPanel.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -95,6 +99,9 @@ public final class LessonPanel extends Panel {
             }
         });
 
+    }
 
+    public void setFormVisibility(boolean visibility) {
+        lessonForm.setVisible(visibility);
     }
 }
