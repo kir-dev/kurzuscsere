@@ -33,9 +33,9 @@ public final class LessonPanel extends Panel {
     Lesson newLesson;
     Form lessonForm;
 
-    public Form getLessonForm() {
+    /*public Form getLessonForm() {
         return lessonForm;
-    }
+    }*/
     private static final String dateFormat = "yyyy.MM.dd HH:mm";
 
     public LessonPanel(String id) {
@@ -104,4 +104,16 @@ public final class LessonPanel extends Panel {
     public void setFormVisibility(boolean visibility) {
         lessonForm.setVisible(visibility);
     }
+
+    @Override
+    protected void onBeforeRender() {
+        super.onBeforeRender();
+    
+        AppSession aps = (AppSession) getSession();
+        
+        setFormVisibility(aps.isLoggedIn());
+    
+    }
+    
+    
 }

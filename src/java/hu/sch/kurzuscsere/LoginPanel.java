@@ -28,7 +28,6 @@ public final class LoginPanel extends Panel {
     public LoginPanel(String id) {
         super(id);
 
-
     }
 
     @Override

@@ -14,12 +14,14 @@ public class HomePage extends BasePage {
     public LessonPanel getLsnPanel() {
         return lsnPanel;
     }
-    final AppSession aps = (AppSession) getSession();
+    
 
     public HomePage() {
         add(new Label("message", "Kurzuscsere"));
-        // ide raktam be ezt a cuccost 
-        add(lsnPanel.setVisible(aps.isLoggedIn()));
+       
+        // ide raktam be ezt a cuccost git stg
+        add(lsnPanel);
+        add(new LessonListPanel("list"));
 
     }
     
