@@ -80,16 +80,24 @@ public final class LessonListPanel extends Panel {
 
     }
 
+    public int lessonsize(int size) {
+        if (size <= 10) {
+            return size;
+        } else {
+            return 10;
+        }
+    }
+
     @Override
     protected void onBeforeRender() {
         super.onBeforeRender();
 
         listform.setVisible(aps.isLoggedIn());
 
-        switch (lsns.size()) {
+        switch (lessonsize(lsns.size())) {
 
             case 1:
-                lesson1 = lsns.get(size() - 1).toString();
+                lesson1 = lsns.get(0).toString();
                 lesson2 = "";
                 lesson3 = "";
                 lesson4 = "";
@@ -101,10 +109,10 @@ public final class LessonListPanel extends Panel {
                 lesson0 = "";
 
                 break;
-                
+
             case 2:
-                lesson1 = lsns.get(size() - 1).toString();
-                lesson2 = lsns.get(size() - 2).toString();
+                lesson1 = lsns.get(0).toString();
+                lesson2 = lsns.get(1).toString();
                 lesson3 = "";
                 lesson4 = "";
                 lesson5 = "";
@@ -115,11 +123,11 @@ public final class LessonListPanel extends Panel {
                 lesson0 = "";
 
                 break;
-                
+
             case 3:
-                lesson1 = lsns.get(size() - 1).toString();
-                lesson2 = lsns.get(size() - 2).toString();
-                lesson3 = lsns.get(size() - 3).toString();
+                lesson1 = lsns.get(0).toString();
+                lesson2 = lsns.get(1).toString();
+                lesson3 = lsns.get(2).toString();
                 lesson4 = "";
                 lesson5 = "";
                 lesson6 = "";
@@ -129,12 +137,12 @@ public final class LessonListPanel extends Panel {
                 lesson0 = "";
 
                 break;
-                
+
             case 4:
-                lesson1 = lsns.get(size() - 1).toString();
-                lesson2 = lsns.get(size() - 2).toString();
-                lesson3 = lsns.get(size() - 3).toString();
-                lesson4 = lsns.get(size() - 4).toString();
+                lesson1 = lsns.get(0).toString();
+                lesson2 = lsns.get(1).toString();
+                lesson3 = lsns.get(2).toString();
+                lesson4 = lsns.get(3).toString();
                 lesson5 = "";
                 lesson6 = "";
                 lesson7 = "";
@@ -143,13 +151,13 @@ public final class LessonListPanel extends Panel {
                 lesson0 = "";
 
                 break;
-                
+
             case 5:
-                lesson1 = lsns.get(size() - 1).toString();
-                lesson2 = lsns.get(size() - 2).toString();
-                lesson3 = lsns.get(size() - 3).toString();
-                lesson4 = lsns.get(size() - 4).toString();
-                lesson5 = lsns.get(size() - 5).toString();
+                lesson1 = lsns.get(0).toString();
+                lesson2 = lsns.get(1).toString();
+                lesson3 = lsns.get(2).toString();
+                lesson4 = lsns.get(3).toString();
+                lesson5 = lsns.get(4).toString();
                 lesson6 = "";
                 lesson7 = "";
                 lesson8 = "";
@@ -157,14 +165,14 @@ public final class LessonListPanel extends Panel {
                 lesson0 = "";
 
                 break;
-                
+
             case 6:
-                lesson1 = lsns.get(size() - 1).toString();
-                lesson2 = lsns.get(size() - 2).toString();
-                lesson3 = lsns.get(size() - 3).toString();
-                lesson4 = lsns.get(size() - 4).toString();
-                lesson5 = lsns.get(size() - 5).toString();
-                lesson6 = lsns.get(size() - 6).toString();
+                lesson1 = lsns.get(0).toString();
+                lesson2 = lsns.get(1).toString();
+                lesson3 = lsns.get(2).toString();
+                lesson4 = lsns.get(3).toString();
+                lesson5 = lsns.get(4).toString();
+                lesson6 = lsns.get(5).toString();
                 lesson7 = "";
                 lesson8 = "";
                 lesson9 = "";
@@ -172,63 +180,63 @@ public final class LessonListPanel extends Panel {
 
 
                 break;
-                
+
             case 7:
-                lesson1 = lsns.get(size() - 1).toString();
-                lesson2 = lsns.get(size() - 2).toString();
-                lesson3 = lsns.get(size() - 3).toString();
-                lesson4 = lsns.get(size() - 4).toString();
-                lesson5 = lsns.get(size() - 5).toString();
-                lesson6 = lsns.get(size() - 6).toString();
-                lesson7 = lsns.get(size() - 7).toString();
+                lesson1 = lsns.get(0).toString();
+                lesson2 = lsns.get(1).toString();
+                lesson3 = lsns.get(2).toString();
+                lesson4 = lsns.get(3).toString();
+                lesson5 = lsns.get(4).toString();
+                lesson6 = lsns.get(5).toString();
+                lesson7 = lsns.get(6).toString();
                 lesson8 = "";
                 lesson9 = "";
                 lesson0 = "";
 
                 break;
-                
+
             case 8:
-                lesson1 = lsns.get(size() - 1).toString();
-                lesson2 = lsns.get(size() - 2).toString();
-                lesson3 = lsns.get(size() - 3).toString();
-                lesson4 = lsns.get(size() - 4).toString();
-                lesson5 = lsns.get(size() - 5).toString();
-                lesson6 = lsns.get(size() - 6).toString();
-                lesson7 = lsns.get(size() - 7).toString();
-                lesson8 = lsns.get(size() - 8).toString();
+                lesson1 = lsns.get(0).toString();
+                lesson2 = lsns.get(1).toString();
+                lesson3 = lsns.get(2).toString();
+                lesson4 = lsns.get(3).toString();
+                lesson5 = lsns.get(4).toString();
+                lesson6 = lsns.get(5).toString();
+                lesson7 = lsns.get(6).toString();
+                lesson8 = lsns.get(7).toString();
                 lesson9 = "";
                 lesson0 = "";
 
                 break;
 
             case 9:
-                lesson1 = lsns.get(size() - 1).toString();
-                lesson2 = lsns.get(size() - 2).toString();
-                lesson3 = lsns.get(size() - 3).toString();
-                lesson4 = lsns.get(size() - 4).toString();
-                lesson5 = lsns.get(size() - 5).toString();
-                lesson6 = lsns.get(size() - 6).toString();
-                lesson7 = lsns.get(size() - 7).toString();
-                lesson8 = lsns.get(size() - 8).toString();
-                lesson9 = lsns.get(size() - 9).toString();
+                lesson1 = lsns.get(0).toString();
+                lesson2 = lsns.get(1).toString();
+                lesson3 = lsns.get(2).toString();
+                lesson4 = lsns.get(3).toString();
+                lesson5 = lsns.get(4).toString();
+                lesson6 = lsns.get(5).toString();
+                lesson7 = lsns.get(6).toString();
+                lesson8 = lsns.get(7).toString();
+                lesson9 = lsns.get(8).toString();
                 lesson0 = "";
 
                 break;
-                
+
             case 10:
-                lesson1 = lsns.get(size() - 1).toString();
-                lesson2 = lsns.get(size() - 2).toString();
-                lesson3 = lsns.get(size() - 3).toString();
-                lesson4 = lsns.get(size() - 4).toString();
-                lesson5 = lsns.get(size() - 5).toString();
-                lesson6 = lsns.get(size() - 6).toString();
-                lesson7 = lsns.get(size() - 7).toString();
-                lesson8 = lsns.get(size() - 8).toString();
-                lesson9 = lsns.get(size() - 9).toString();
-                lesson0 = lsns.get(size() - 10).toString();
+                lesson1 = lsns.get(0).toString();
+                lesson2 = lsns.get(1).toString();
+                lesson3 = lsns.get(2).toString();
+                lesson4 = lsns.get(3).toString();
+                lesson5 = lsns.get(4).toString();
+                lesson6 = lsns.get(5).toString();
+                lesson7 = lsns.get(6).toString();
+                lesson8 = lsns.get(7).toString();
+                lesson9 = lsns.get(8).toString();
+                lesson0 = lsns.get(9).toString();
 
                 break;
-                
+
             default:
                 lesson1 = "";
                 lesson2 = "";
