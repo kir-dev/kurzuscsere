@@ -9,18 +9,11 @@ import org.apache.wicket.markup.html.basic.Label;
 
 public class HomePage extends BasePage {
 
-    private LessonPanel lsnPanel = new LessonPanel("lessonpanel");
-
-    public LessonPanel getLsnPanel() {
-        return lsnPanel;
-    }
-    
-
     public HomePage() {
         add(new Label("message", "Kurzuscsere"));
        
         // ide raktam be ezt a cuccost git stg
-        add(lsnPanel);
+        add(new LessonPanel("lessonpanel"));
         add(new LessonListPanel("list"));
 
     }
