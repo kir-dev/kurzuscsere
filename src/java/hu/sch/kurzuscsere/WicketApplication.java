@@ -19,7 +19,7 @@ import org.apache.wicket.protocol.http.WebApplication;
 
 public class WicketApplication extends WebApplication {
 
-    private ArrayList<Lesson> lessons;
+    private List<Lesson> lessons;
     
     public WicketApplication() {
         lessons = new ArrayList<Lesson>();        
@@ -38,7 +38,7 @@ public class WicketApplication extends WebApplication {
     /**
      * @return the ls
      */
-    public ArrayList<Lesson> getLessons() {
+    public List<Lesson> getLessons() {
         return lessons;
     }
     

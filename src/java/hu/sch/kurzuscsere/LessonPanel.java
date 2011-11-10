@@ -6,7 +6,10 @@ package hu.sch.kurzuscsere;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+
+
+import java.util.List;
+
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
@@ -51,7 +54,9 @@ public final class LessonPanel extends Panel {
         final PropertyModel<Lesson> model = new PropertyModel(this, "lesson");
 
         final AppSession aps = (AppSession) getSession();
-        final ArrayList<Lesson> lessonAdapter = ((WicketApplication) getApplication()).getLessons();
+
+        final List<Lesson> lessonAdapter = ((WicketApplication) getApplication()).getLessons();
+
         lessonForm = new Form("lessonform");
         add(lessonForm);
 

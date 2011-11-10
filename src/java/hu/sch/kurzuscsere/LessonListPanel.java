@@ -4,13 +4,12 @@
  */
 package hu.sch.kurzuscsere;
 
-import java.util.ArrayList;
+import java.util.List;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.model.PropertyModel;
 
 /**
  *
@@ -18,7 +17,7 @@ import org.apache.wicket.model.PropertyModel;
  */
 public final class LessonListPanel extends Panel {
 
-    final ArrayList<Lesson> lsns = ((WicketApplication) getApplication()).getLessons();
+    final List<Lesson> lsns = ((WicketApplication) getApplication()).getLessons();
     final AppSession aps = (AppSession) getSession();
     Form lista = new Form("list");
 
@@ -32,7 +31,7 @@ public final class LessonListPanel extends Panel {
         super.onInitialize();
 
         add(lista);
-        Label newest = new Label("legfrisebb","Legfrisebbek");
+        Label newest = new Label("legfrissebb","Legfrissebbek");
         lista.add(newest);
         ListView listview = new ListView("listview", lsns) {
 
@@ -43,8 +42,8 @@ public final class LessonListPanel extends Panel {
         lista.add(listview);
 
     }
-
-   
+    
+    
 
     @Override
     protected void onBeforeRender() {
