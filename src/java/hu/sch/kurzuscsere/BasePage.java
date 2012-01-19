@@ -1,36 +1,26 @@
-/*
- * WicketExamplePage.java
- *
- * Created on October 20, 2011, 9:28 PM
- */
- 
-package hu.sch.kurzuscsere;           
+package hu.sch.kurzuscsere;
 
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 
-/** 
+/**
  *
  * @author Kresshy
- * @version 
+ * @version
  */
-
 public abstract class BasePage extends WebPage {
 
-  
-    
-    public BasePage() { 
-        super(); 
-        add(new LoginPanel("loginpanel"));
-       
-        add(new FooterPanel("footerpanel", "Powered by Kir-Dev and created by Kresshy"));
-        
-        //final AppSession aps = (AppSession) getSession();
-        
-        /*if (aps.isLoggedIn()) lsnPanel.setFormVisibility(true);
-        else lsnPanel.setFormVisibility(false);*/
-        
-        add(new FeedbackPanel("feedbackPanel"));
-    } 
+    public BasePage() {
+        super();
+    }
 
+    @Override
+    protected void onInitialize() {
+        super.onInitialize();
+
+        add(new FeedbackPanel("feedbackPanel"));
+        add(new HeaderPanel("headerPanel", "KurzusCsere"));
+        add(new FooterPanel("footerpanel", "Powered by Kir-Dev and created by Kresshy"));
+
+    }
 }
