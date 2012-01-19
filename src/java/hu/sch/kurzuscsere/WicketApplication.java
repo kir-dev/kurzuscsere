@@ -19,10 +19,8 @@ import org.apache.wicket.protocol.http.WebApplication;
 
 public class WicketApplication extends WebApplication {
 
-    private List<Lesson> lessons;
     
     public WicketApplication() {
-        lessons = new ArrayList<Lesson>();        
     }
     
 
@@ -34,14 +32,5 @@ public class WicketApplication extends WebApplication {
     public AppSession newSession(Request request, Response response) {
         return new AppSession(request);
     }
-
-    /**
-     * @return the ls
-     */
-    public List<Lesson> getLessons() {
-        return lessons;
-    }
-    
-    
     
 }

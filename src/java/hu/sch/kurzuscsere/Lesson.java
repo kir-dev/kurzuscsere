@@ -4,7 +4,8 @@
  */
 package hu.sch.kurzuscsere;
 
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -13,17 +14,12 @@ import java.util.Date;
 public class Lesson {
     
     private String name;
-    private String courseFrom;
-    private String courseTo;
-    private Date timeFrom;
-    private Date timeTo;
-    
-    private static final String LIMITER = "|";
+    private String classCode;
+    private List<Course> courses;
     
     public Lesson() {
-    
+        courses = new ArrayList<Course>();
     }
-    
 
     /**
      * @return the name
@@ -40,67 +36,28 @@ public class Lesson {
     }
 
     /**
-     * @return the courseFrom
+     * @return the classCode
      */
-    public String getCourseFrom() {
-        return courseFrom;
+    public String getClassCode() {
+        return classCode;
     }
 
     /**
-     * @param courseFrom the courseFrom to set
+     * @param classCode the classCode to set
      */
-    public void setCourseFrom(String courseFrom) {
-        this.courseFrom = courseFrom;
-    }
-
-    /**
-     * @return the courseTo
-     */
-    public String getCourseTo() {
-        return courseTo;
-    }
-
-    /**
-     * @param courseTo the courseTo to set
-     */
-    public void setCourseTo(String courseTo) {
-        this.courseTo = courseTo;
-    }
-
-    /**
-     * @return the timeFrom
-     */
-    public Date getTimeFrom() {
-        return timeFrom;
-    }
-
-    /**
-     * @param timeFrom the timeFrom to set
-     */
-    public void setTimeFrom(Date timeFrom) {
-        this.timeFrom = timeFrom;
-    }
-
-    /**
-     * @return the timeTo
-     */
-    public Date getTimeTo() {
-        return timeTo;
-    }
-
-    /**
-     * @param timeTo the timeTo to set
-     */
-    public void setTimeTo(Date timeTo) {
-        this.timeTo = timeTo;
-    }
-
-    @Override
-    public String toString() {
-        return name+LIMITER+courseFrom+LIMITER+courseTo+LIMITER+timeFrom.toString()+LIMITER+timeTo.toString();
+    public void setClassCode(String classCode) {
+        this.classCode = classCode;
     }
     
+    public void addTo(Course course) {
+        courses.add(course);
+    }
     
+    public Course getTo(Course course) {
+        int idx = courses.indexOf(course);
+        if (idx != -1) return courses.get(idx);
+        else return new Course();
+    }
     
     
 }
