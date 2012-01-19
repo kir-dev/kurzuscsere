@@ -20,7 +20,7 @@ public abstract class BasePage extends WebPage {
 
         add(new FeedbackPanel("feedbackPanel"));
         add(new HeaderPanel("headerPanel", "KurzusCsere"));
-        add(new FooterPanel("footerpanel", "Powered by Kir-Dev and created by Kresshy"));
+        add(new FooterPanel("footerPanel", "Powered by Kir-Dev and created by Kresshy"));
 
     }
 }
