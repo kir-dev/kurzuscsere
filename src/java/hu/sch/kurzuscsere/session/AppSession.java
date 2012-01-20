@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package hu.sch.kurzuscsere;
+package hu.sch.kurzuscsere.session;
 
 import org.apache.wicket.Request;
 import org.apache.wicket.protocol.http.WebSession;

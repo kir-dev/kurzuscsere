@@ -6,6 +6,8 @@
  
 package hu.sch.kurzuscsere;           
 
+import hu.sch.kurzuscsere.page.HomePage;
+import hu.sch.kurzuscsere.session.AppSession;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.wicket.Request;

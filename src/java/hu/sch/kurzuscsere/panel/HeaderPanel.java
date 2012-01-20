@@ -1,4 +1,4 @@
-package hu.sch.kurzuscsere;
+package hu.sch.kurzuscsere.panel;
 
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.Panel;

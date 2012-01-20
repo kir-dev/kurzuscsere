@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package hu.sch.kurzuscsere;
+package hu.sch.kurzuscsere.panel;
 
+import hu.sch.kurzuscsere.session.AppSession;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;

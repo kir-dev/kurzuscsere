@@ -1,5 +1,7 @@
-package hu.sch.kurzuscsere;
+package hu.sch.kurzuscsere.page;
 
+import hu.sch.kurzuscsere.panel.FooterPanel;
+import hu.sch.kurzuscsere.panel.HeaderPanel;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 

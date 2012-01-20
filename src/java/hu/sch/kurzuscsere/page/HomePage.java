@@ -1,4 +1,4 @@
-package hu.sch.kurzuscsere;
+package hu.sch.kurzuscsere.page;
 
 public class HomePage extends BasePage {
 
