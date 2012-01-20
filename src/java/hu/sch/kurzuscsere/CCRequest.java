@@ -17,11 +17,14 @@ public class CCRequest {
     private User usr;
     private String from;
     private List<String> to;
+    public enum Status {New, Notified, Deleted};
+    private Status status;
     
     public CCRequest() {
         to = new ArrayList<String>();       
         usr = new User();
         from = "";
+        status = Status.New;
     }
 
     /**
