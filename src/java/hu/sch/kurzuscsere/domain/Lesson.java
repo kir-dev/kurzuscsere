@@ -12,7 +12,8 @@ import java.util.List;
  * @author Kresshy
  */
 public class Lesson {
-    
+
+    private int id;
     private String name;
     private String classCode;
     private List<Course> courses;
