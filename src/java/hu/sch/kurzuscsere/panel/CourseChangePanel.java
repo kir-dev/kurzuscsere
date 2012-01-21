@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hu.sch.kurzuscsere.panel;
 
 import java.util.ArrayList;
@@ -57,7 +53,7 @@ public final class CourseChangePanel extends Panel {
                 item.add(text);
             }
         };
-        rowPanel.add(lv);
+        rowPanel.add(lv.setReuseItems(true));
 
         AjaxButton addButton = new AjaxButton("addRow", changeForm) {
 
@@ -72,7 +68,6 @@ public final class CourseChangePanel extends Panel {
 
         addButton.setDefaultFormProcessing(false);
         rowPanel.add(addButton);
-        lv.setReuseItems(true);
 
         changeForm.add(new DropDownChoice<String>("lessons", new PropertyModel<String>(this, "selected"), LESSONS));
         changeForm.add(new TextField("from", new PropertyModel(this, "courseFrom")));
@@ -81,7 +76,6 @@ public final class CourseChangePanel extends Panel {
             @Override
             public void onSubmit() {
                 super.onSubmit();
-
             }
         });
 
