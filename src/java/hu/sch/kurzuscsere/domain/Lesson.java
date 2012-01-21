@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hu.sch.kurzuscsere.domain;
 
 import java.util.ArrayList;
@@ -12,11 +8,12 @@ import java.util.List;
  * @author Kresshy
  */
 public class Lesson {
-    
+
+    private int id;
     private String name;
     private String classCode;
     private List<Course> courses;
-    
+
     public Lesson() {
         courses = new ArrayList<Course>();
     }
@@ -48,16 +45,4 @@ public class Lesson {
     public void setClassCode(String classCode) {
         this.classCode = classCode;
     }
-    
-    public void addTo(Course course) {
-        courses.add(course);
-    }
-    
-    public Course getTo(Course course) {
-        int idx = courses.indexOf(course);
-        if (idx != -1) return courses.get(idx);
-        else return new Course();
-    }
-    
-    
 }
