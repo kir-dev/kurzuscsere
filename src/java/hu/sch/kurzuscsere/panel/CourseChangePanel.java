@@ -29,7 +29,7 @@ public final class CourseChangePanel extends Panel {
     @Override
     public void onInitialize() {
         super.onInitialize();
-        
+         
         final Form changePanel = new Form("changePanel");
         add(changePanel);
         

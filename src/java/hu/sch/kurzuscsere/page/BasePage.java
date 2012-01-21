@@ -20,7 +20,7 @@ public abstract class BasePage extends WebPage {
     @Override
     protected void onInitialize() {
         super.onInitialize();
-
+ 
         add(new FeedbackPanel("feedbackPanel"));
         add(new HeaderPanel("headerPanel", "KurzusCsere"));
         add(new FooterPanel("footerPanel", "Powered by Kir-Dev and created by Kresshy"));
