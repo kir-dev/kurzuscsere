@@ -1,5 +1,6 @@
 package hu.sch.kurzuscsere.page;
 
+import hu.sch.kurzuscsere.panel.CourseChangePanel;
 import hu.sch.kurzuscsere.panel.FooterPanel;
 import hu.sch.kurzuscsere.panel.HeaderPanel;
 import org.apache.wicket.markup.html.WebPage;
@@ -23,6 +24,7 @@ public abstract class BasePage extends WebPage {
         add(new FeedbackPanel("feedbackPanel"));
         add(new HeaderPanel("headerPanel", "KurzusCsere"));
         add(new FooterPanel("footerPanel", "Powered by Kir-Dev and created by Kresshy"));
-
+        add(new CourseChangePanel("courseChangePanel"));
+        
     }
 }

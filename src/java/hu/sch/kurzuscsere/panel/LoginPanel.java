@@ -34,8 +34,6 @@ public final class LoginPanel extends Panel {
     @Override
     protected void onInitialize() {
         super.onInitialize();
-        
-        
 
         final AppSession aps = (AppSession) getSession();
         final Form loginForm = new Form("form");
@@ -62,7 +60,7 @@ public final class LoginPanel extends Panel {
         PropertyModel pswModel = new PropertyModel(this, "psw");
         loginForm.add(utf = new TextField("username", userNameModel));
         loginForm.add(ptf = new PasswordTextField("password", pswModel));
-        loginForm.add(new Button("btnSubmit") {
+        loginForm.add(new Button("btnSubmit", Model.of("Bejelentkezes")) {
 
             @Override
             public void onSubmit() {
