@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.markup.html.form.AjaxSubmitButton;
+import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.DropDownChoice;
@@ -31,6 +31,10 @@ public final class CourseChangePanel extends Panel {
     private String selected = "Kérem válasszon egy tárgyat";
     private String courseFrom = "";
 
+    public CourseChangePanel(String id) {
+        super(id);
+    }
+
     @Override
     public void onInitialize() {
         super.onInitialize();
@@ -44,19 +48,18 @@ public final class CourseChangePanel extends Panel {
 
         List rows = new ArrayList();
         rows.add(new String());
-        
+
         final ListView lv = new ListView("rows", rows) {
 
             @Override
             protected void populateItem(ListItem item) {
-                int index = item.getIndex() + 1;
                 TextField text = new TextField("text", item.getModel());
                 item.add(text);
             }
         };
         rowPanel.add(lv);
 
-        AjaxSubmitButton addButton = new AjaxSubmitButton("addRow", changeForm) {
+        AjaxButton addButton = new AjaxButton("addRow", changeForm) {
 
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form form) {
@@ -66,9 +69,10 @@ public final class CourseChangePanel extends Panel {
                 }
             }
         };
-        
+
         addButton.setDefaultFormProcessing(false);
         rowPanel.add(addButton);
+        lv.setReuseItems(true);
 
         changeForm.add(new DropDownChoice<String>("lessons", new PropertyModel<String>(this, "selected"), LESSONS));
         changeForm.add(new TextField("from", new PropertyModel(this, "courseFrom")));
@@ -81,9 +85,5 @@ public final class CourseChangePanel extends Panel {
             }
         });
 
-    }
-
-    public CourseChangePanel(String id) {
-        super(id);
     }
 }
