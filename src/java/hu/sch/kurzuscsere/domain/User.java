@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hu.sch.kurzuscsere.domain;
 
 /**
@@ -14,7 +10,7 @@ public class User {
     private String nick;
     private String name;
     private String email;
-    
+
     public User() {
         nick = "";
         name = "";
@@ -76,7 +72,4 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
-    
-    
-    
 }

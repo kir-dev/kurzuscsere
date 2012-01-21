@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hu.sch.kurzuscsere.domain;
 
 /**
@@ -12,9 +8,9 @@ public class Course {
 
     private int id;
     private String courseCode;
-    
+
     public Course() {
-        courseCode = "";        
+        courseCode = "";
     }
 
     /**
@@ -44,8 +40,4 @@ public class Course {
     public void setCourseCode(String courseCode) {
         this.courseCode = courseCode;
     }
-    
-    
-    
-    
 }

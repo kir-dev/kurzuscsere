@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hu.sch.kurzuscsere.domain;
 
 import java.util.ArrayList;
@@ -15,15 +11,19 @@ public class CCRequest {
 
     private int id;
     private User usr;
-    private String from;
-    private List<String> to;
-    public enum Status {New, Notified, Deleted};
+    private Course from;
+    private List<Course> to;
+
+    public enum Status {
+
+        New, Notified, Deleted
+    };
     private Status status;
-    
+
     public CCRequest() {
-        to = new ArrayList<String>();       
+        to = new ArrayList<Course>();
         usr = new User();
-        from = "";
+        from = null;
         status = Status.New;
     }
 
@@ -44,39 +44,28 @@ public class CCRequest {
     /**
      * @return the usr
      */
-    public User getUsr() {
+    public User getUser() {
         return usr;
     }
 
     /**
      * @param usr the usr to set
      */
-    public void setUsr(User usr) {
+    public void setUser(User usr) {
         this.usr = usr;
     }
 
     /**
      * @return the from
      */
-    public String getFrom() {
+    public Course getFrom() {
         return from;
     }
 
     /**
      * @param from the from to set
      */
-    public void setFrom(String from) {
+    public void setFrom(Course from) {
         this.from = from;
     }
-
-    public void addTo(String course) {
-        to.add(course);
-    }
-    
-    public String getTo(String course) {
-        int idx = to.indexOf(course);
-        if (idx != -1) return to.get(idx);
-        else return "Not found";
-    }
-        
 }
