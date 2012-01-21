@@ -13,19 +13,19 @@ import org.apache.wicket.protocol.http.WebSession;
  */
 public class AppSession extends WebSession {
 
-    private String userName;
+    private Long userId;
 
-    public synchronized String getUserName() {
-        return userName;
+    public synchronized Long getUserId() {
+        return userId;
     }
 
-    public synchronized void setUserName(String userName) {
-        this.userName = userName;
+    public synchronized void setUserName(Long userId) {
+        this.userId = userId;
         dirty();
     }
 
     public synchronized boolean isLoggedIn() {
-        if (userName != null) {
+        if (userId != null) {
             return true;
         }
         return false;
@@ -34,5 +34,4 @@ public class AppSession extends WebSession {
     public AppSession(Request request) {
         super(request);
     }
-    
 }

@@ -19,6 +19,5 @@ public class HeaderPanel extends Panel {
         super.onInitialize();
 
         add(new Label("pageTitle"));
-        add(new LoginPanel("loginpanel"));
     }
 }

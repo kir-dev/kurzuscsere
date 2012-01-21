@@ -9,13 +9,21 @@ import java.util.List;
  */
 public class Lesson {
 
-    private int id;
+    private Long id;
     private String name;
     private String classCode;
     private List<Course> courses;
 
     public Lesson() {
         courses = new ArrayList<Course>();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     /**
