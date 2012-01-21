@@ -8,18 +8,21 @@
     <body>
         <wicket:panel>
             <form wicket:id="changePanel">
-                Targy: <br/>
-                
+                Targy:  <input wicket:id="btn1" type="submit" value="OK"/> <br/>
                 <select wicket:id="lessons"></select> <br/>  
-                
+
                 Kurzusok: <br/>
-                 
-                Honnan:
-                <input wicket:id="from" type="text"/>               
-                Hova:
-                <input wicket:id="to" type="text"/>
-                <input wicket:id="btn1" type="submit" value="OK"/>
-                
+
+                Honnan: <br/>
+                <input wicket:id="from" type="text"/>       
+
+                <div wicket:id="rowsPanel">
+                    Hova: <input type="button" wicket:id="addRow" value="+1"></input>
+                    <div wicket:id="rows">
+                        <input wicket:id="text" type="text"/>
+                    </div>
+                    
+                </div>
             </form>
         </wicket:panel>
     </body>
