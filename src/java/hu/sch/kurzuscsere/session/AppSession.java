@@ -19,7 +19,7 @@ public class AppSession extends WebSession {
         return userId;
     }
 
-    public synchronized void setUserName(Long userId) {
+    public synchronized void setUserId(Long userId) {
         this.userId = userId;
         dirty();
     }

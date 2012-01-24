@@ -1,8 +1,12 @@
 package hu.sch.kurzuscsere;
 
+import hu.sch.kurzuscsere.authz.AgentBasedAuthorization;
+import hu.sch.kurzuscsere.authz.DummyAuthorization;
+import hu.sch.kurzuscsere.authz.UserAuthorization;
 import hu.sch.kurzuscsere.config.ConfigKeys;
 import hu.sch.kurzuscsere.config.LoggerSetup;
 import hu.sch.kurzuscsere.page.HomePage;
+import hu.sch.kurzuscsere.page.MyRequestsPage;
 import hu.sch.kurzuscsere.session.AppSession;
 import hu.sch.kurzuscsere.util.ServerTimerFilter;
 import org.apache.wicket.Request;
@@ -14,11 +18,13 @@ import org.slf4j.LoggerFactory;
 /**
  *
  * @author Kresshy
+ * @author balo
  * @version
  */
 public class WicketApplication extends WebApplication {
 
     private static final Logger log;
+    private UserAuthorization authorizationComponent;
 
     static {
         //setup logging
@@ -39,9 +45,15 @@ public class WicketApplication extends WebApplication {
         //Ha dev módban vagyunk, akkor hozzáteszünk egy új filtert, ami mutatja
         //a render időket a log fájlban.
         if (getConfigurationType().equals(DEVELOPMENT)) {
+            authorizationComponent = new DummyAuthorization();
             getRequestCycleSettings().addResponseFilter(new ServerTimerFilter());
             log.info("Successfully enabled ServerTimerFilter");
+        } else {
+            authorizationComponent = new AgentBasedAuthorization();
         }
+
+        //mount bookmarkable pages
+        mountPages();
     }
 
     @Override
@@ -59,8 +71,17 @@ public class WicketApplication extends WebApplication {
         return DEPLOYMENT;
     }
 
+    public UserAuthorization getAuthorizationComponent() {
+        return authorizationComponent;
+    }
+
     @Override
     public AppSession newSession(Request request, Response response) {
         return new AppSession(request);
+    }
+
+    private void mountPages() {
+        mountBookmarkablePage("/Home", HomePage.class);
+        mountBookmarkablePage("/MyRequests", MyRequestsPage.class);
     }
 }
