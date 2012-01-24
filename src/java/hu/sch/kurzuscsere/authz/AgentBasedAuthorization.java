@@ -60,10 +60,6 @@ public final class AgentBasedAuthorization implements UserAuthorization {
      */
     private static final String FIRSTNAME_ATTRNAME = "givenName";
     /**
-     * A becenévhez tartozó HTTP header kulcs
-     */
-    private static final String NICNKAME_ATTRNAME = "displayName";
-    /**
      * Az e-mailhez tartozó HTTP header kulcs
      */
     private static final String EMAIL_ATTRNAME = "mail";
@@ -86,7 +82,7 @@ public final class AgentBasedAuthorization implements UserAuthorization {
         User user = new User();
 
         user.setEmail(getSingleValuedStringAttribute(servletRequest, EMAIL_ATTRNAME));
-        user.setNick(getSingleValuedStringAttribute(servletRequest, NICNKAME_ATTRNAME));
+        user.setNick(getRemoteUser(wicketRequest));
 
         StringBuilder nameSb =
                 new StringBuilder(getSingleValuedStringAttribute(servletRequest, LASTNAME_ATTRNAME));
