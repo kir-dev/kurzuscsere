@@ -30,10 +30,11 @@ package hu.sch.kurzuscsere.authz;
 import hu.sch.kurzuscsere.domain.User;
 import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
-import org.apache.log4j.Logger;
 import org.apache.wicket.Application;
 import org.apache.wicket.Request;
 import org.apache.wicket.protocol.http.WebRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Autorizációs feladatok ellátásáért felelős osztály, mely feldolgozza az
@@ -49,8 +50,7 @@ public final class AgentBasedAuthorization implements UserAuthorization {
     /**
      * Logoláshoz szükséges objektum
      */
-    private static final Logger log =
-            Logger.getLogger(AgentBasedAuthorization.class);
+    private static final Logger log = LoggerFactory.getLogger(AgentBasedAuthorization.class);
     /**
      * A vezetéknévhez tartozó HTTP header kulcs
      */

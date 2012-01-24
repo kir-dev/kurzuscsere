@@ -28,10 +28,11 @@
 package hu.sch.kurzuscsere.authz;
 
 import hu.sch.kurzuscsere.domain.User;
-import org.apache.log4j.Logger;
 import org.apache.wicket.Application;
 import org.apache.wicket.Request;
 import org.apache.wicket.protocol.http.WebApplication;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Fejlesztői teszt autorizációs modul. Lényegében meghazudja nekünk, hogy mely
@@ -45,7 +46,7 @@ public final class DummyAuthorization implements UserAuthorization {
     /**
      * A logoláshoz szükséges logger.
      */
-    private static Logger log = Logger.getLogger(DummyAuthorization.class);
+    private static final Logger log = LoggerFactory.getLogger(DummyAuthorization.class);
 
     /**
      * {@inheritDoc}
@@ -63,7 +64,7 @@ public final class DummyAuthorization implements UserAuthorization {
      */
     @Override
     public String getRemoteUser(Request wicketRequest) {
-        return "balo";
+        return "testUser";
     }
 
     /**
@@ -71,6 +72,13 @@ public final class DummyAuthorization implements UserAuthorization {
      */
     @Override
     public User getUserAttributes(Request wicketRequest) {
-        return null;
+        User user = new User();
+
+        user.setEmail("mail@mmm.cc");
+        user.setNick(getRemoteUser(wicketRequest));
+
+        user.setName("Alfa Béla");
+
+        return user;
     }
 }
