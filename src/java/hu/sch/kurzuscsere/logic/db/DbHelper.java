@@ -1,6 +1,5 @@
 package hu.sch.kurzuscsere.logic.db;
 
-import hu.sch.kurzuscsere.WicketApplication;
 import hu.sch.kurzuscsere.config.ConfigKeys;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -16,13 +15,13 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class DbHelper {
 
-    private static final Logger log = LoggerFactory.getLogger(WicketApplication.class);
+    private static final Logger log = LoggerFactory.getLogger(DbHelper.class);
     private static final String EXCEPTION_MSG = "Can't get database connection.";
 
     private DbHelper() {
     }
 
-    public static final Connection getConnection() {
+    public static synchronized final Connection getConnection() {
         Connection connection = null;
         try {
             InitialContext context = new InitialContext();
