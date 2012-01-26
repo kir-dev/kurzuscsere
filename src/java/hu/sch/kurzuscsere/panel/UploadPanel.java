@@ -31,6 +31,7 @@ public final class UploadPanel extends Panel {
     }
     private FileUploadField fileUpload;
     private String UPLOAD_FOLDER = "C:\\";
+    private String UPLOAD_FILENAME;
 
     @Override
     protected void onInitialize() {
@@ -47,7 +48,7 @@ public final class UploadPanel extends Panel {
 
                     File newFile = new File(UPLOAD_FOLDER
                             + uploadedFile.getClientFileName());
-
+                    UPLOAD_FILENAME = uploadedFile.getClientFileName();
                     if (newFile.exists()) {
                         newFile.delete();
                     }
@@ -91,7 +92,7 @@ public final class UploadPanel extends Panel {
                 super.onSubmit();
 
                 try {
-                    FileInputStream fis = new FileInputStream("c:\\valami.csv");
+                    FileInputStream fis = new FileInputStream(UPLOAD_FOLDER + UPLOAD_FILENAME);
                     InputStreamReader isr = new InputStreamReader(fis);
                     BufferedReader br = new BufferedReader(isr);
                     
