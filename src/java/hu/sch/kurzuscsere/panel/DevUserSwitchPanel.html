@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:wicket="http://wicket.apache.org">
+    <head><title>Wicket Example</title></head>
+    <body>
+        <wicket:panel>
+            <a wicket:id="devPanelSwitcher" href="#">[user dev panel show / hide]</a>
+
+            <div wicket:id="formContainer">
+                <form wicket:id="changeDevUser">
+                    SSO adatok: <br/>
+                    <table>
+                        <tr>
+                            <td>login nick:</td>
+                            <td><input wicket:id="devUserNick" /></td>
+                        </tr>
+                        <tr>
+                            <td>név:</td>
+                            <td><input wicket:id="devUserName" /></td>
+                        </tr>
+                        <tr>
+                            <td>mail:</td>
+                            <td><input wicket:id="devUserMail" /></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="text-align: right;">
+                                <input type="submit" />
+                            </td>
+                        </tr>
+                    </table>
+
+                </form>
+            </div>
+
+        </wicket:panel>
+    </body>
+</html>
