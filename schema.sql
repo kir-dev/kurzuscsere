@@ -4,9 +4,9 @@ CREATE SEQUENCE users_seq;
 
 CREATE TABLE users (
     id              bigint PRIMARY KEY DEFAULT nextval('users_seq'),
-    usr_nick        varchar(40) NOT NULL,
+    usr_nick        varchar(40) UNIQUE NOT NULL,
     usr_name        varchar(60) NOT NULL,
-    usr_email       varchar(60) NOT NULL
+    usr_email       varchar(60) UNIQUE NOT NULL
 );
 
 CREATE SEQUENCE lessons_seq;
