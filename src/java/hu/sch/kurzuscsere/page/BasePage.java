@@ -4,7 +4,10 @@ import hu.sch.kurzuscsere.panel.CourseChangePanel;
 import hu.sch.kurzuscsere.panel.FooterPanel;
 import hu.sch.kurzuscsere.panel.HeaderPanel;
 import hu.sch.kurzuscsere.panel.UploadPanel;
+import org.apache.wicket.Page;
 import org.apache.wicket.markup.html.WebPage;
+import org.apache.wicket.markup.html.link.BookmarkablePageLink;
+import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 
 /**
