@@ -35,14 +35,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Fejlesztői teszt autorizációs modul. Lényegében meghazudja nekünk, hogy mely
- * körökben vagyunk körvezetők.
+ * Fejlesztői teszt autorizációs modul.
  *
  * @author hege
  * @author balo
  */
 public final class DummyAuthorization implements UserAuthorization {
 
+    public static User actualTestUser = new User();
     /**
      * A logoláshoz szükséges logger.
      */
@@ -56,6 +56,7 @@ public final class DummyAuthorization implements UserAuthorization {
         if (wicketApplication.getConfigurationType().equals(WebApplication.DEPLOYMENT)) {
             throw new IllegalStateException("Do not use dummy authz module in production environment!");
         }
+
         log.warn("Dummy authorization mode initiated successfully");
     }
 
@@ -64,7 +65,7 @@ public final class DummyAuthorization implements UserAuthorization {
      */
     @Override
     public String getRemoteUser(Request wicketRequest) {
-        return "testUser";
+        return actualTestUser.getNick();
     }
 
     /**
@@ -74,10 +75,10 @@ public final class DummyAuthorization implements UserAuthorization {
     public User getUserAttributes(Request wicketRequest) {
         User user = new User();
 
-        user.setEmail("mail@mmm.cc");
+        user.setEmail(actualTestUser.getEmail());
         user.setNick(getRemoteUser(wicketRequest));
 
-        user.setName("Alfa Béla");
+        user.setName(actualTestUser.getName());
 
         return user;
     }
