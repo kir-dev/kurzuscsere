@@ -72,7 +72,7 @@ public final class UploadPanel extends Panel {
 
         Form parseForm = new Form("parseform");
 
-        final List<String[]> labellist = new ArrayList<String[]>();
+        final List labellist = new ArrayList();
 
         final ListView listView = new ListView("listview", labellist) {
 
@@ -99,8 +99,10 @@ public final class UploadPanel extends Panel {
                     String[] splitline;
                     
                     while (( strLine = br.readLine()) != null) {
+                        
                         splitline = strLine.split("\\;");
-                        labellist.add(splitline);                        
+                        labellist.add(splitline[0] + " " + splitline[1]);  
+                        
                     }
                     
                     isr.close();
