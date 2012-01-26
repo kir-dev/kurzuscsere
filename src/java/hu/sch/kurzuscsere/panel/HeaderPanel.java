@@ -3,6 +3,7 @@ package hu.sch.kurzuscsere.panel;
 import hu.sch.kurzuscsere.authz.DummyAuthorization;
 import hu.sch.kurzuscsere.domain.User;
 import hu.sch.kurzuscsere.page.HomePage;
+import hu.sch.kurzuscsere.page.HomePageDev;
 import hu.sch.kurzuscsere.page.MyRequestsPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
@@ -33,5 +34,7 @@ public class HeaderPanel extends Panel {
         add(new BookmarkablePageLink<HomePage>("homeMenuLink", HomePage.class));
         add(new BookmarkablePageLink<MyRequestsPage>("myreqMenuLink",
                 MyRequestsPage.class));
+        add(new BookmarkablePageLink<HomePageDev>("newHomeMenuLink",
+                HomePageDev.class));
     }
 }
