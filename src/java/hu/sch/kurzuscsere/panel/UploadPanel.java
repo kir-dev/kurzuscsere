@@ -4,10 +4,14 @@
  */
 package hu.sch.kurzuscsere.panel;
 
+import hu.sch.kurzuscsere.domain.Lesson;
+import hu.sch.kurzuscsere.logic.LessonManager;
+import hu.sch.kurzuscsere.logic.db.DbHelper;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.wicket.markup.html.basic.Label;
@@ -30,7 +34,7 @@ public final class UploadPanel extends Panel {
         super(id);
     }
     private FileUploadField fileUpload;
-    private String UPLOAD_FOLDER = "C:\\";
+    private String UPLOAD_FOLDER = "";
     private String UPLOAD_FILENAME;
 
     @Override
@@ -85,6 +89,8 @@ public final class UploadPanel extends Panel {
         add(parseForm);
         parseForm.add(listView);
 
+        final Connection conn = DbHelper.getConnection();
+        
         parseForm.add(new Button("btnlist") {
 
             @Override
@@ -101,13 +107,19 @@ public final class UploadPanel extends Panel {
                     
                     while (( strLine = br.readLine()) != null) {
                         
-                        splitline = strLine.split("\\;");
-                        labellist.add(splitline[0] + " " + splitline[1]);  
+                        splitline = strLine.split(";");
+                        labellist.add(splitline[0] + " " + splitline[1]); 
+                        Lesson lsn = new Lesson();
+                        lsn.setName(splitline[0]);
+                        lsn.setClassCode(splitline[1]);
+                        LessonManager lsm = new LessonManager();
+                        lsm.insertLesson(conn, lsn);
                         
                     }
                     
                     isr.close();
                     fis.close();
+                    conn.close();
                     
                 } catch (Exception e){
                 

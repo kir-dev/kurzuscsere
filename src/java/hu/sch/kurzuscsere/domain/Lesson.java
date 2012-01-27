@@ -53,4 +53,13 @@ public class Lesson {
     public void setClassCode(String classCode) {
         this.classCode = classCode;
     }
+
+    @Override
+    public String toString() {
+        return getName() + getClassCode();    
+    }
+
+    
+
 }
+
