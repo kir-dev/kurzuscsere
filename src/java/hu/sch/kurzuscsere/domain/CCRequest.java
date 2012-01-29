@@ -11,6 +11,7 @@ public class CCRequest {
 
     private Long id;
     private User usr;
+    private Lesson lesson;
     private Course from;
     private List<Course> to;
 
@@ -22,8 +23,9 @@ public class CCRequest {
 
     public CCRequest() {
         to = new ArrayList<Course>();
-        usr = new User();
+        usr = null;
         from = null;
+        lesson = null;
         status = Status.New;
     }
 
@@ -67,5 +69,29 @@ public class CCRequest {
      */
     public void setFrom(Course from) {
         this.from = from;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public List<Course> getTo() {
+        return to;
+    }
+
+    public void setTo(List<Course> to) {
+        this.to = to;
+    }
+
+    public Lesson getLesson() {
+        return lesson;
+    }
+
+    public void setLesson(Lesson lesson) {
+        this.lesson = lesson;
     }
 }

@@ -24,25 +24,17 @@ CREATE TABLE courses (
     c_code          varchar(15) NOT NULL
 );
 
-CREATE SEQUENCE lessons_courses_seq;
-
-CREATE TABLE lessons_courses (
-    id              bigint PRIMARY KEY DEFAULT nextval('lessons_courses_seq'),
-    lesson_id       bigint NOT NULL,
-    course_id       bigint NOT NULL,
-    FOREIGN KEY ( lesson_id ) REFERENCES lessons,
-    FOREIGN KEY ( course_id ) REFERENCES courses
-);
-
 CREATE SEQUENCE ccRequests_seq;
 
 CREATE TABLE ccRequests (
     id              bigint PRIMARY KEY DEFAULT nextval('ccRequests_seq'),
     usr_id          bigint NOT NULL,
+    lesson_id          bigint NOT NULL,
     course_from_id  bigint NOT NULL,
     status          varchar(10) NOT NULL,
     FOREIGN KEY ( usr_id ) REFERENCES users,
-    FOREIGN KEY ( course_from_id ) REFERENCES courses
+    FOREIGN KEY ( course_from_id ) REFERENCES courses,
+    FOREIGN KEY ( lesson_id ) REFERENCES lessons
 );
 
 CREATE SEQUENCE ccRequests_to_courses_seq;

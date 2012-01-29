@@ -10,6 +10,7 @@ public class Course {
     private String courseCode;
 
     public Course() {
+        id = 0L;
         courseCode = "";
     }
 
