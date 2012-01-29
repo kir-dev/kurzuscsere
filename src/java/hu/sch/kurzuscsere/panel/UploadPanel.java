@@ -1,20 +1,14 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hu.sch.kurzuscsere.panel;
 
 import hu.sch.kurzuscsere.logic.LessonManager;
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
+import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.upload.FileUpload;
 import org.apache.wicket.markup.html.form.upload.FileUploadField;
@@ -37,14 +31,15 @@ public final class UploadPanel extends Panel {
         super(id);
     }
     private FileUploadField fileUpload;
-    private String UPLOAD_FOLDER = "";
-    private String UPLOAD_FILENAME;
 
     @Override
     protected void onInitialize() {
         super.onInitialize();
 
-        Form uploadForm = new Form("simpleUpload") {
+        final List<String> labellist = new LinkedList();
+        final Map<String, String> lessons = new HashMap<String, String>();
+
+        final Form uploadForm = new Form("simpleUpload") {
 
             @Override
             protected void onSubmit() {
@@ -53,20 +48,34 @@ public final class UploadPanel extends Panel {
                 final FileUpload uploadedFile = fileUpload.getFileUpload();
                 if (uploadedFile != null) {
 
-                    File newFile = new File(UPLOAD_FOLDER
-                            + uploadedFile.getClientFileName());
-                    UPLOAD_FILENAME = uploadedFile.getClientFileName();
-                    if (newFile.exists()) {
-                        newFile.delete();
-                    }
-
                     try {
-                        newFile.createNewFile();
-                        uploadedFile.writeTo(newFile);
 
-                        info("saved file: " + uploadedFile.getClientFileName());
+                        InputStream inputStream = uploadedFile.getInputStream();
+                        InputStreamReader reader = new InputStreamReader(inputStream);
+                        BufferedReader br = new BufferedReader(reader);
+
+                        br.readLine(); //fejléc, nem kell
+
+                        String strLine;
+                        String[] splitline;
+
+                        while ((strLine = br.readLine()) != null) {
+
+                            splitline = strLine.split(";");
+                            String lessonName = splitline[0];
+                            String lessonCode = splitline[1];
+                            labellist.add(lessonName + " " + lessonCode);
+                            lessons.put(lessonCode, lessonName);
+                        }
+
+                        br.close();
+                        inputStream.close();
+
+                        LessonManager.getInstance().importLessons(lessons);
+
                     } catch (Exception e) {
-                        throw new IllegalStateException("Error");
+                        error("Az adatokat nem sikerült importálni");
+                        log.warn("Can't import lessons.", e);
                     }
 
                 }
@@ -80,8 +89,6 @@ public final class UploadPanel extends Panel {
 
         Form parseForm = new Form("parseform");
 
-        final List labellist = new ArrayList();
-
         final ListView listView = new ListView("listview", labellist) {
 
             @Override
@@ -91,45 +98,5 @@ public final class UploadPanel extends Panel {
         };
         add(parseForm);
         parseForm.add(listView);
-
-        final Map<String, String> lessons = new HashMap<String, String>();
-
-        parseForm.add(new Button("btnlist") {
-
-            @Override
-            public void onSubmit() {
-                super.onSubmit();
-
-                try {
-                    FileInputStream fis = new FileInputStream(UPLOAD_FOLDER + UPLOAD_FILENAME);
-                    InputStreamReader isr = new InputStreamReader(fis);
-                    BufferedReader br = new BufferedReader(isr);
-                    
-                    String strLine;
-                    String[] splitline;
-                    
-                    while (( strLine = br.readLine()) != null) {
-                        
-                        splitline = strLine.split(";");
-                        String lessonName = splitline[0];
-                        String lessonCode = splitline[1];
-                        labellist.add(lessonName + " " + lessonCode);
-                        lessons.put(lessonCode, lessonName);
-                        LessonManager.getInstance().importLessons(lessons);
-                    }
-                    
-                    isr.close();
-                    fis.close();
-                    
-                } catch (Exception e){
-                    log.warn("Can't import lessons", e);
-                }
-            
-            }
-            
-        });
-    
     }
-    
-    
 }
