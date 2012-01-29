@@ -36,7 +36,7 @@ public abstract class BasePage extends WebPage {
     private void loadUser() {
         String remUser = getAuthorizationComponent().getRemoteUser(getRequest());
 
-        if (remUser == null) { // no sso login
+        if (remUser == null || remUser.equals("")) { // no sso login
             getSession().setUserId(0L);
             return;
         }
