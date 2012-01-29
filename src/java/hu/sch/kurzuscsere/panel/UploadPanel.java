@@ -4,16 +4,15 @@
  */
 package hu.sch.kurzuscsere.panel;
 
-import hu.sch.kurzuscsere.domain.Lesson;
 import hu.sch.kurzuscsere.logic.LessonManager;
-import hu.sch.kurzuscsere.logic.db.DbHelper;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
-import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
@@ -23,12 +22,16 @@ import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.util.lang.Bytes;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author Kresshy
  */
 public final class UploadPanel extends Panel {
+
+    private static final Logger log = LoggerFactory.getLogger(UploadPanel.class);
 
     public UploadPanel(String id) {
         super(id);
@@ -89,8 +92,8 @@ public final class UploadPanel extends Panel {
         add(parseForm);
         parseForm.add(listView);
 
-        final Connection conn = DbHelper.getConnection();
-        
+        final Map<String, String> lessons = new HashMap<String, String>();
+
         parseForm.add(new Button("btnlist") {
 
             @Override
@@ -108,21 +111,18 @@ public final class UploadPanel extends Panel {
                     while (( strLine = br.readLine()) != null) {
                         
                         splitline = strLine.split(";");
-                        labellist.add(splitline[0] + " " + splitline[1]); 
-                        Lesson lsn = new Lesson();
-                        lsn.setName(splitline[0]);
-                        lsn.setClassCode(splitline[1]);
-                        LessonManager lsm = LessonManager.getInstance();
-                        lsm.insertLesson(conn, lsn);
-                        
+                        String lessonName = splitline[0];
+                        String lessonCode = splitline[1];
+                        labellist.add(lessonName + " " + lessonCode);
+                        lessons.put(lessonCode, lessonName);
+                        LessonManager.getInstance().importLessons(lessons);
                     }
                     
                     isr.close();
                     fis.close();
-                    conn.close();
                     
                 } catch (Exception e){
-                
+                    log.warn("Can't import lessons", e);
                 }
             
             }
