@@ -112,7 +112,7 @@ public final class UploadPanel extends Panel {
                         Lesson lsn = new Lesson();
                         lsn.setName(splitline[0]);
                         lsn.setClassCode(splitline[1]);
-                        LessonManager lsm = new LessonManager();
+                        LessonManager lsm = LessonManager.getInstance();
                         lsm.insertLesson(conn, lsn);
                         
                     }

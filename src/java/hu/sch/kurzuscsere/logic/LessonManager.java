@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hu.sch.kurzuscsere.logic;
 
 import hu.sch.kurzuscsere.domain.Lesson;
@@ -15,14 +11,26 @@ import org.slf4j.LoggerFactory;
  * @author Kresshy
  */
 public class LessonManager {
-    
+
     private static final Logger log = LoggerFactory.getLogger(LessonManager.class);
-    
+
+    private LessonManager() {
+    }
+
+    public synchronized static LessonManager getInstance() {
+        return LessonManager.LessonManagerHolder.INSTANCE;
+    }
+
+    private static class LessonManagerHolder {
+
+        private static final LessonManager INSTANCE = new LessonManager();
+    }
+
     public void insertLesson(final Connection conn, final Lesson l) {
-        
+
         String sql = "INSERT INTO lessons(ls_name, ls_code) VALUES(?, ?);";
         try {
-            if (l.getName() == null || l.getName().equals("") ||l.getClassCode() == null
+            if (l.getName() == null || l.getName().equals("") || l.getClassCode() == null
                     || l.getClassCode().equals("")) {
 
                 throw new Exception();
@@ -39,8 +47,6 @@ public class LessonManager {
             log.error("Can't insert lesson: " + l, ex);
         }
 
-        
+
     }
-    
-    
 }
