@@ -28,6 +28,7 @@ public final class CourseChangePanel extends Panel {
     private String selected = "Kérem válasszon egy tárgyat";
     private String courseFrom = "";
     private String label = "Lessons here";
+    private List<String> Course = new ArrayList<String>();
 
     
     public CourseChangePanel(String id) {
@@ -75,7 +76,8 @@ public final class CourseChangePanel extends Panel {
         changeForm.add(new DropDownChoice<String>("lessons", new PropertyModel<String>(this, "selected"), LESSONS));
         changeForm.add(new TextField("from", new PropertyModel(this, "courseFrom")));
         final PropertyModel pModel = new PropertyModel(this, "label");
-        changeForm.add(new Label("test", pModel));
+        final PropertyModel testModel = new PropertyModel(this, "Course");
+        changeForm.add(new Label("test", testModel));
         Button send = new Button("btn1", Model.of("Elküldés")) {
 
             @Override
@@ -84,6 +86,7 @@ public final class CourseChangePanel extends Panel {
                 int index = (int) lv.getModelObject().size();
                 --index;
                 pModel.setObject(lv.getModelObject().get(index));
+                testModel.setObject(lv.getModelObject());
             }
         };
         
