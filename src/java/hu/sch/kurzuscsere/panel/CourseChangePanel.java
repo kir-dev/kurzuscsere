@@ -7,6 +7,7 @@ import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.markup.html.WebMarkupContainer;
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
@@ -26,7 +27,9 @@ public final class CourseChangePanel extends Panel {
     private static List<String> LESSONS = Arrays.asList(new String[]{"Analízis 1", "Digitális Technológia 1", "Programozás alapjai 1"});
     private String selected = "Kérem válasszon egy tárgyat";
     private String courseFrom = "";
+    private String label = "Lessons here";
 
+    
     public CourseChangePanel(String id) {
         super(id);
     }
@@ -71,13 +74,20 @@ public final class CourseChangePanel extends Panel {
 
         changeForm.add(new DropDownChoice<String>("lessons", new PropertyModel<String>(this, "selected"), LESSONS));
         changeForm.add(new TextField("from", new PropertyModel(this, "courseFrom")));
-        changeForm.add(new Button("btn1", Model.of("Elküldés")) {
+        final PropertyModel pModel = new PropertyModel(this, "label");
+        changeForm.add(new Label("test", pModel));
+        Button send = new Button("btn1", Model.of("Elküldés")) {
 
             @Override
             public void onSubmit() {
                 super.onSubmit();
+                int index = (int) lv.getModelObject().size();
+                --index;
+                pModel.setObject(lv.getModelObject().get(index));
             }
-        });
+        };
+        
+        changeForm.add(send);
 
     }
 }

@@ -1,6 +1,5 @@
 package hu.sch.kurzuscsere.page;
 
-import hu.sch.kurzuscsere.panel.LastPairings;
 import hu.sch.kurzuscsere.panel.LastRequestsPanel;
 
 /**
