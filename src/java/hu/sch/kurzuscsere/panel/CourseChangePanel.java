@@ -27,10 +27,9 @@ public final class CourseChangePanel extends Panel {
     private static List<String> LESSONS = Arrays.asList(new String[]{"Analízis 1", "Digitális Technológia 1", "Programozás alapjai 1"});
     private String selected = "Kérem válasszon egy tárgyat";
     private String courseFrom = "";
-    private String label = "Lessons here";
-    private List<String> Course = new ArrayList<String>();
+//    private String label = "Lessons here";
+    private List courseTo = new ArrayList();
 
-    
     public CourseChangePanel(String id) {
         super(id);
     }
@@ -75,21 +74,26 @@ public final class CourseChangePanel extends Panel {
 
         changeForm.add(new DropDownChoice<String>("lessons", new PropertyModel<String>(this, "selected"), LESSONS));
         changeForm.add(new TextField("from", new PropertyModel(this, "courseFrom")));
-        final PropertyModel pModel = new PropertyModel(this, "label");
-        final PropertyModel testModel = new PropertyModel(this, "Course");
+//        final PropertyModel pModel = new PropertyModel(this, "label");
+        
+        final PropertyModel testModel = new PropertyModel(this, "courseTo");
+        
         changeForm.add(new Label("test", testModel));
+        
         Button send = new Button("btn1", Model.of("Elküldés")) {
 
             @Override
             public void onSubmit() {
                 super.onSubmit();
-                int index = (int) lv.getModelObject().size();
-                --index;
-                pModel.setObject(lv.getModelObject().get(index));
+//                int index = (int) lv.getModelObject().size();
+//                --index;
+//                pModel.setObject(lv.getModelObject().get(index));
                 testModel.setObject(lv.getModelObject());
+                courseTo =(ArrayList) testModel.getObject();
             }
         };
         
+        changeForm.add(new Label("testone", new PropertyModel(this, "courseTo")));
         changeForm.add(send);
 
     }
