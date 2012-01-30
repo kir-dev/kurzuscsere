@@ -1,4 +1,4 @@
-# postgres DB schema
+﻿
 
 CREATE SEQUENCE users_seq;
 
