@@ -62,6 +62,42 @@ public class UserManager {
     }
 
     /**
+     * Megkeresi id alapján a felhasználót az adatbázisban. Ha ilyen id-val
+     * nincs felhasználó, akkor
+     * <pre>null</pre> értékkel tér vissza
+     *
+     * @param uid user id
+     * @return
+     */
+    public User getUserById(final Long uid) {
+        User user = null;
+
+        Connection conn = DbHelper.getConnection();
+        if (conn == null) {
+            return user;
+        }
+
+        String sql = "SELECT * FROM users WHERE id = ?";
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setLong(1, uid);
+            ResultSet res = stmt.executeQuery();
+            if (res.next()) {
+                user = new User(uid, res.getString("usr_nick"),
+                        res.getString("usr_name"),
+                        res.getString("usr_email"));
+            }
+            stmt.close();
+            //
+            conn.close();
+        } catch (SQLException ex) {
+            log.error("Can't get user from id: " + uid, ex);
+        }
+
+        return user;
+    }
+
+    /**
      * Frissíti a felhasználó attribútumait. Ha a lokális felhasználó még nem
      * létezik, akkor létrehozza.
      *
@@ -92,8 +128,6 @@ public class UserManager {
                 stmt.close();
                 //
                 conn.close();
-                //meglevo felhasznalo id betoltese
-                userAttrs.setId(getUserId(userAttrs.getNick()));
             } catch (SQLException ex) {
                 log.error("Can't update user: " + userAttrs, ex);
             }
