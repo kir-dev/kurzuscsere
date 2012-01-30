@@ -4,10 +4,8 @@ import hu.sch.kurzuscsere.WicketApplication;
 import hu.sch.kurzuscsere.authz.UserAuthorization;
 import hu.sch.kurzuscsere.domain.User;
 import hu.sch.kurzuscsere.logic.UserManager;
-import hu.sch.kurzuscsere.panel.CourseChangePanel;
 import hu.sch.kurzuscsere.panel.FooterPanel;
 import hu.sch.kurzuscsere.panel.HeaderPanel;
-import hu.sch.kurzuscsere.panel.UploadPanel;
 import hu.sch.kurzuscsere.session.AppSession;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
@@ -38,7 +36,7 @@ public abstract class BasePage extends WebPage {
     private void loadUser() {
         String remUser = getAuthorizationComponent().getRemoteUser(getRequest());
 
-        if (remUser == null) { // no sso login
+        if (remUser == null || remUser.equals("")) { // no sso login
             getSession().setUserId(0L);
             return;
         }

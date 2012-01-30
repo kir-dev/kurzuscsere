@@ -1,21 +1,18 @@
 package hu.sch.kurzuscsere.domain;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.Serializable;
 
 /**
  *
  * @author Kresshy
  */
-public class Lesson {
+public class Lesson implements Serializable{
 
     private Long id;
     private String name;
     private String classCode;
-    private List<Course> courses;
 
     public Lesson() {
-        courses = new ArrayList<Course>();
     }
 
     public Long getId() {
@@ -56,10 +53,6 @@ public class Lesson {
 
     @Override
     public String toString() {
-        return getName() + getClassCode();    
+        return getName() + getClassCode();
     }
-
-    
-
 }
-

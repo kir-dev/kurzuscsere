@@ -1,18 +1,20 @@
 package hu.sch.kurzuscsere.domain;
 
-import java.util.ArrayList;
+import java.io.Serializable;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
  *
  * @author Kresshy
  */
-public class CCRequest {
+public class CCRequest implements Serializable {
 
     private Long id;
     private User usr;
-    private Course from;
-    private List<Course> to;
+    private Lesson lesson;
+    private String fromCourse;
+    private List<String> to;
 
     public enum Status {
 
@@ -21,9 +23,10 @@ public class CCRequest {
     private Status status;
 
     public CCRequest() {
-        to = new ArrayList<Course>();
-        usr = new User();
-        from = null;
+        to = new LinkedList<String>();
+        usr = null;
+        fromCourse = null;
+        lesson = null;
         status = Status.New;
     }
 
@@ -55,17 +58,35 @@ public class CCRequest {
         this.usr = usr;
     }
 
-    /**
-     * @return the from
-     */
-    public Course getFrom() {
-        return from;
+    public Status getStatus() {
+        return status;
     }
 
-    /**
-     * @param from the from to set
-     */
-    public void setFrom(Course from) {
-        this.from = from;
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public List<String> getTo() {
+        return to;
+    }
+
+    public void setTo(List<String> to) {
+        this.to = to;
+    }
+
+    public Lesson getLesson() {
+        return lesson;
+    }
+
+    public void setLesson(Lesson lesson) {
+        this.lesson = lesson;
+    }
+
+    public String getFromCourse() {
+        return fromCourse;
+    }
+
+    public void setFromCourse(String fromCourse) {
+        this.fromCourse = fromCourse;
     }
 }
