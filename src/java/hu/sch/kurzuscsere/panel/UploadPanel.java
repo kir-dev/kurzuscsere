@@ -69,8 +69,9 @@ public final class UploadPanel extends Panel {
                         }
 
                         br.close();
+                        reader.close();
                         inputStream.close();
-
+                        
                         LessonManager.getInstance().importLessons(lessons);
 
                     } catch (Exception e) {

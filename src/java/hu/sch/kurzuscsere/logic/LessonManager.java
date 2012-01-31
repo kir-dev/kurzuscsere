@@ -6,6 +6,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -111,5 +114,35 @@ public class LessonManager {
         }
 
         return lesson;
+    }
+
+    public List<Lesson> getLessons() {
+
+        final Connection conn = DbHelper.getConnection();
+        if (conn == null) {
+            return Collections.EMPTY_LIST;
+        }
+
+        List<Lesson> lessons = new LinkedList<Lesson>();
+        String sql = "SELECT * FROM lessons "
+                + "ORDER BY ls_name ASC";
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet res = stmt.executeQuery();
+            while (res.next()) {
+                Lesson lsn = new Lesson();
+                lsn.setId(res.getLong("id"));
+                lsn.setName(res.getString("ls_name"));
+                lsn.setClassCode(res.getString("ls_code"));
+                lessons.add(lsn);
+            }
+            stmt.close();
+            //
+            conn.close();
+        } catch (SQLException ex) {
+            log.error("Can't get lessons", ex);
+        }
+
+        return lessons;
     }
 }

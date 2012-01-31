@@ -25,7 +25,7 @@ public class CCRequest implements Serializable {
     public CCRequest() {
         to = new LinkedList<String>();
         usr = null;
-        fromCourse = null;
+        fromCourse = "";
         lesson = null;
         status = Status.New;
     }
@@ -88,5 +88,31 @@ public class CCRequest implements Serializable {
 
     public void setFromCourse(String fromCourse) {
         this.fromCourse = fromCourse;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder stb = new StringBuilder();
+        stb.append("id=").append(id).append("|");
+        stb.append("status=").append(status).append("|");
+
+        if (usr != null) {
+            stb.append("user=").append(usr.getNick()).append("|");
+        }
+        
+        stb.append("fromCourse=").append(fromCourse).append("|");
+        
+        if (lesson != null) {
+            stb.append("lesson=").append(lesson.getName()).append("|");
+        }
+        stb.append("toCourse=");
+
+        for (String toCourse : to) {
+            stb.append(toCourse).append(",");
+        }
+
+        stb.append("|");
+
+        return stb.toString();
     }
 }
