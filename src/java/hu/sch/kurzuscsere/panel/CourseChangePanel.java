@@ -3,6 +3,7 @@ package hu.sch.kurzuscsere.panel;
 import hu.sch.kurzuscsere.domain.CCRequest;
 import hu.sch.kurzuscsere.domain.Lesson;
 import hu.sch.kurzuscsere.domain.User;
+import hu.sch.kurzuscsere.logic.CourseManager;
 import hu.sch.kurzuscsere.logic.LessonManager;
 import java.util.ArrayList;
 import java.util.List;
@@ -105,7 +106,7 @@ public final class CourseChangePanel extends Panel {
                 testUser.setNick("TESTUSER");
                 changeRequest.setUser(testUser);
                 changeRequest.setLesson(selectedLesson);
-
+                changeRequest.setStatus(CCRequest.Status.New);
 
 //                Lesson testLesson = LessonManager.getInstance().getLessonByName("A programozás alapjai 1.");
 //              changeRequest.setLesson(testLesson);
@@ -115,7 +116,7 @@ public final class CourseChangePanel extends Panel {
 //                testModel.setObject(lv.getModelObject());
 //                courseTo = (ArrayList) testModel.getObject();
 
-
+                CourseManager.getInstance().instertRequest(changeRequest);
                 log.warn(changeRequest.toString());
 
             }

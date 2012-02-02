@@ -95,22 +95,17 @@ public class CCRequest implements Serializable {
         StringBuilder stb = new StringBuilder();
         stb.append("id=").append(id).append("|");
         stb.append("status=").append(status).append("|");
-
         if (usr != null) {
             stb.append("user=").append(usr.getNick()).append("|");
         }
-        
         stb.append("fromCourse=").append(fromCourse).append("|");
-        
         if (lesson != null) {
-            stb.append("lesson=").append(lesson.getName()).append("|");
+            stb.append("lesson=").append(lesson.getName()).append(",").append("lesson_id=").append(lesson.getId()).append("|");
         }
         stb.append("toCourse=");
-
         for (String toCourse : to) {
             stb.append(toCourse).append(",");
         }
-
         stb.append("|");
 
         return stb.toString();

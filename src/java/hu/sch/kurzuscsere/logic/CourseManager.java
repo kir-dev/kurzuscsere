@@ -8,8 +8,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,9 +38,37 @@ public class CourseManager {
     public void instertRequest(CCRequest req) {
 
         Connection conn = DbHelper.getConnection();
-        if (conn != null) {
-            String sql = "INSERT INTO ccrequests";
+
+        String sqlCCRequest = "INSERT INTO ccrequests (usr_id, course_from_id, status) VALUES (?, ?, ?) ";
+        String sqlLessons_courses = "INSERT INTO lessons_courses (lesson_id, course_id) VALUES (?, ?) ";
+        String sqlCourses = "INSERT INTO courses(c_code) VALUES (?)";
+        try {
+
+            PreparedStatement stmtCourses = conn.prepareStatement(sqlCourses);
+
+            List<String> Courses = req.getTo();
+
+            for (Iterator<String> it = Courses.iterator(); it.hasNext();) {
+                String course_code = it.next();
+                if (course_code != null) {
+                    stmtCourses.setString(1, course_code);
+                    stmtCourses.executeUpdate();
+                }
+            }
+
+            stmtCourses.close();
+            
+//                PreparedStatement stmtCCRequest = conn.prepareStatement(sqlCCRequest);
+//                PreparedStatement stmtLessons_courses = conn.prepareStatement(sqlLessons_courses);
+            
+            conn.close();
+
+        } catch (SQLException ex) {
+            java.util.logging.Logger.getLogger(CourseManager.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+
+
     }
 
     /**
