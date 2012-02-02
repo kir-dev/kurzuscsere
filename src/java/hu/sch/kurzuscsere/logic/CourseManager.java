@@ -33,6 +33,14 @@ public class CourseManager {
         private static final CourseManager INSTANCE = new CourseManager();
     }
 
+    public void instertRequest(CCRequest req) {
+
+        Connection conn = DbHelper.getConnection();
+        if (conn != null) {
+            String sql = "INSERT INTO ccrequests";
+        }
+    }
+
     /**
      *
      * @param limit

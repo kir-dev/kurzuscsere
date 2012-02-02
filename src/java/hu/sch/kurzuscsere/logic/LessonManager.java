@@ -116,6 +116,8 @@ public class LessonManager {
         return lesson;
     }
 
+ 
+    
     public List<Lesson> getLessons() {
 
         final Connection conn = DbHelper.getConnection();
