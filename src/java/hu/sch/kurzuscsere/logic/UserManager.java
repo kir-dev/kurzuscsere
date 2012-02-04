@@ -141,7 +141,7 @@ public class UserManager {
      * @param conn
      * @param u
      */
-    private void insertUser(final Connection conn, final User u) {
+    public void insertUser(final Connection conn, final User u) {
 
         String sql = "INSERT INTO users(usr_nick, usr_name, usr_email) VALUES(?, ?, ?);";
         try {

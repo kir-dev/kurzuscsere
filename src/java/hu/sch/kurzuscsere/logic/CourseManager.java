@@ -38,37 +38,47 @@ public class CourseManager {
     public void instertRequest(CCRequest req) {
 
         Connection conn = DbHelper.getConnection();
+        if (conn == null) {
+            log.warn("Can't INSTERT REQUEST because connection is null");
+            return;
+        }
 
-        String sqlCCRequest = "INSERT INTO ccrequests (usr_id, course_from_id, status) VALUES (?, ?, ?) ";
-        String sqlLessons_courses = "INSERT INTO lessons_courses (lesson_id, course_id) VALUES (?, ?) ";
-        String sqlCourses = "INSERT INTO courses(c_code) VALUES (?)";
+        String sqlCCRequest = "INSERT INTO ccrequests (usr_id, lesson_id, course_from_code, status) VALUES (?, ?, ?, ?);";
+        String sqlCCRequestToCourses = "INSERT INTO ccrequest_to_courses (ccreq_id, course_to_code) VALUES (?, ?)";
+
         try {
 
-            PreparedStatement stmtCourses = conn.prepareStatement(sqlCourses);
+            PreparedStatement stmtCCRequest = conn.prepareStatement(sqlCCRequest);
 
-            List<String> Courses = req.getTo();
+            stmtCCRequest.setLong(1, req.getUser().getId());
+            stmtCCRequest.setLong(2, req.getLesson().getId());
+            stmtCCRequest.setString(3, req.getFromCourse());
+            stmtCCRequest.setString(4, req.getStatus().toString());
 
-            for (Iterator<String> it = Courses.iterator(); it.hasNext();) {
-                String course_code = it.next();
-                if (course_code != null) {
-                    stmtCourses.setString(1, course_code);
-                    stmtCourses.executeUpdate();
+            stmtCCRequest.executeUpdate();
+
+            stmtCCRequest.close();
+
+            PreparedStatement stmtCCRequestToCourses = conn.prepareStatement(sqlCCRequestToCourses);
+
+            List<String> toCourses = req.getTo();
+
+            for (Iterator<String> it = toCourses.iterator(); it.hasNext();) {
+
+                String course = it.next();
+                if (course != null) {
+                    stmtCCRequestToCourses.setLong(1, 1);
+                    stmtCCRequestToCourses.setString(2, course);
+                    stmtCCRequestToCourses.executeUpdate();
                 }
             }
+            stmtCCRequestToCourses.close();
 
-            stmtCourses.close();
-            
-//                PreparedStatement stmtCCRequest = conn.prepareStatement(sqlCCRequest);
-//                PreparedStatement stmtLessons_courses = conn.prepareStatement(sqlLessons_courses);
-            
             conn.close();
 
         } catch (SQLException ex) {
-            java.util.logging.Logger.getLogger(CourseManager.class.getName()).log(Level.SEVERE, null, ex);
+            log.error("can't INSERT INTO ccrequests or ccrequests_to_courses: " + ex);
         }
-
-
-
     }
 
     /**

@@ -96,7 +96,7 @@ public class CCRequest implements Serializable {
         stb.append("id=").append(id).append("|");
         stb.append("status=").append(status).append("|");
         if (usr != null) {
-            stb.append("user=").append(usr.getNick()).append("|");
+            stb.append("user=").append(usr.getNick()).append(",").append(usr.getId()).append("|");
         }
         stb.append("fromCourse=").append(fromCourse).append("|");
         if (lesson != null) {
