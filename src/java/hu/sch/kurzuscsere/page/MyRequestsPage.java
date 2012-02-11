@@ -28,37 +28,40 @@ public class MyRequestsPage extends BasePage {
         Form form = new Form("form");
         repeatPanel.setOutputMarkupId(true);
         form.add(repeatPanel);
-        
+
         List pan = new ArrayList();
-        
+
         final ListView lv = new ListView("panel", pan) {
 
             @Override
             protected void populateItem(ListItem li) {
                 CourseChangePanel cPanel = new CourseChangePanel("cpanel");
-                li.add(cPanel);                
+                li.add(cPanel);
             }
         };
-        
+
         lv.setReuseItems(true);
-        
-        
-        
+
+
+
         AjaxButton addPanel = new AjaxButton("addbtn", form) {
 
             @Override
             protected void onSubmit(AjaxRequestTarget art, Form form) {
                 lv.getModelObject().add(new CourseChangePanel("cpanel"));
-                if (art != null)
+                if (art != null) {
                     art.addComponent(repeatPanel);
+                }
             }
         };
-        
+
         addPanel.setDefaultFormProcessing(false);
         repeatPanel.add(addPanel);
-    
-    }
-    
-    
 
+    }
+
+    @Override
+    protected String getPageTitle() {
+        return "Kéréseim";
+    }
 }
