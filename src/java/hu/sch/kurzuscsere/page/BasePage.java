@@ -12,6 +12,7 @@ import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.link.Link;
+import org.apache.wicket.markup.html.panel.FeedbackPanel;
 
 /**
  *
@@ -30,9 +31,7 @@ public abstract class BasePage extends WebPage {
 
         loadUser();
 
-        //add(new FeedbackPanel("feedbackPanel"));
-        //add(new HeaderPanel("headerPanel", "KurzusCsere"));
-        //add(new FooterPanel("footerPanel", "Powered by Kir-Dev and created by Balo & Kresshy"));
+        add(new FeedbackPanel("feedbackPanel"));
 
         add(new DevUserSwitchPanel("devPanel"));
 
