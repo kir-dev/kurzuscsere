@@ -106,7 +106,7 @@ public final class CourseChangePanel extends Panel {
                 changeRequest.setLesson(selectedLesson);
                 changeRequest.setStatus(CCRequest.Status.New);
 
-                CourseManager.getInstance().instertRequest(changeRequest);
+                CourseManager.getInstance().insertRequest(changeRequest);
                 log.warn(changeRequest.toString());
 
             }
