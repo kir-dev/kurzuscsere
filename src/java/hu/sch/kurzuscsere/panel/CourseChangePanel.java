@@ -7,7 +7,6 @@ import hu.sch.kurzuscsere.logic.LessonManager;
 import hu.sch.kurzuscsere.logic.UserManager;
 import hu.sch.kurzuscsere.session.AppSession;
 import java.util.List;
-import org.apache.wicket.Application;
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
