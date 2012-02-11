@@ -30,6 +30,17 @@ public class CCRequest implements Serializable {
         status = Status.New;
     }
 
+    public CCRequest(Long id, User usr, Lesson lesson, String fromCourse,
+            List<String> to, Status status) {
+
+        this.id = id;
+        this.usr = usr;
+        this.lesson = lesson;
+        this.fromCourse = fromCourse;
+        this.to = to;
+        this.status = status;
+    }
+
     /**
      * @return the id
      */

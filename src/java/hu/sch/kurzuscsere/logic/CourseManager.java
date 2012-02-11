@@ -34,7 +34,7 @@ public class CourseManager {
         private static final CourseManager INSTANCE = new CourseManager();
     }
 
-    public void insertRequest(CCRequest req) {
+    public void insertRequest(final CCRequest req) {
 
         Connection conn = DbHelper.getConnection();
         if (conn == null) {
@@ -42,8 +42,12 @@ public class CourseManager {
             return;
         }
 
-        String sqlCCRequest = "INSERT INTO ccrequests (usr_id, lesson_id, course_from_code, status) VALUES (?, ?, ?, ?);";
-        String sqlCCRequestToCourses = "INSERT INTO ccrequest_to_courses (ccreq_id, course_to_code) VALUES (?, ?)";
+        String sqlCCRequest = "INSERT INTO ccrequests (usr_id, lesson_id, course_from_code, status) "
+                + "VALUES (?, ?, ?, ?) "
+                + "RETURNING id;";
+
+        String sqlCCRequestToCourses = "INSERT INTO ccrequests_to_courses (ccreq_id, course_to_code) "
+                + "VALUES (?, ?)";
 
         try {
 
@@ -54,23 +58,27 @@ public class CourseManager {
             stmtCCRequest.setString(3, req.getFromCourse());
             stmtCCRequest.setString(4, req.getStatus().toString());
 
-            stmtCCRequest.executeUpdate();
+            ResultSet result = stmtCCRequest.executeQuery();
+
+            //save the returned auto generated id
+            if (result.next()) {
+                req.setId(result.getLong(1));
+            }
 
             stmtCCRequest.close();
 
+            //persist "change course to" list
             PreparedStatement stmtCCRequestToCourses = conn.prepareStatement(sqlCCRequestToCourses);
 
             List<String> toCourses = req.getTo();
-
-            for (Iterator<String> it = toCourses.iterator(); it.hasNext();) {
-
-                String course = it.next();
-                if (course != null) {
-                    stmtCCRequestToCourses.setLong(1, 1);
+            for (String course : toCourses) {
+                if (course != null && !course.isEmpty()) {
+                    stmtCCRequestToCourses.setLong(1, req.getId());
                     stmtCCRequestToCourses.setString(2, course);
                     stmtCCRequestToCourses.executeUpdate();
                 }
             }
+
             stmtCCRequestToCourses.close();
 
             conn.close();
