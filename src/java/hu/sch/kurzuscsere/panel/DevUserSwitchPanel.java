@@ -3,6 +3,7 @@ package hu.sch.kurzuscsere.panel;
 import hu.sch.kurzuscsere.authz.DummyAuthorization;
 import hu.sch.kurzuscsere.domain.User;
 import hu.sch.kurzuscsere.logic.UserManager;
+import hu.sch.kurzuscsere.session.AppSession;
 import org.apache.wicket.Application;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -36,6 +37,8 @@ public class DevUserSwitchPanel extends Panel {
                 super.onSubmit();
 
                 UserManager.getInstance().updateUserAttributes(getDevUser());
+                Long userId = UserManager.getInstance().getUserId(getDevUser().getNick());
+                ((AppSession)getSession()).setUserId(userId);
             }
         };
 
