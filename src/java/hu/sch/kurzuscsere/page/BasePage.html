@@ -2,21 +2,71 @@
 <html xmlns:wicket="http://wicket.apache.org"> 
     <head> 
         <meta charset="UTF-8"> 
-        <meta name="description" content="Put your description here!" /> 
+        <meta name="description" content="BME VIK kurzuscsere alkalmazás" />
+        <title><wicket:message key="page.title" /></title>
     <wicket:head> 
         <wicket:link> 
-            <link rel="stylesheet" type="text/css" href="css/style.css"/>
-        </wicket:link> 
+            <link rel="stylesheet" type="text/css" href="css/reset.css" />
+            <link rel="stylesheet" type="text/css" href="css/vir-css.css" />
+            <link rel="stylesheet" type="text/css" href="css/kurzuscsere.css" />
+            <script type="text/javascript" src="js/navbar.js"></script>
+        </wicket:link>
+        <!--[if IE]>
+           <style type="text/css">
+           #left-side-bar, #right-side-bar {
+               opacity:1;
+           }
+           #vir{
+              top:1px;
+           }
+           </style>
+           <![endif]-->
     </wicket:head> 
 </head> 
 <body> 
-    <header wicket:id="headerPanel" />
-    <div wicket:id="feedbackPanel"></div>
 
-    <section class="content_container"> 
-        <wicket:child/> 
-    </section> 
+    <script type="text/javascript">
+        //navbar("wiki", "images/profile-picture.jpg",
+        //"<span wicket:id='loggedInUser'></span>", "", "");
+    </script>
+    <div id="outer_container" class="center">
+        <div id="container" class="center">
+            <div id="container_header">
+                <h1 id="appTitle"><a href="#" wicket:id="appNameLink">KurzusCsere</a></h1>
+            </div>
+            <div id="main_wrapper">
+                <div id="content" class="wiki">
+                    <h1 class="table-head">
+                        <span class="table-title" wicket:id="inPageTitle">[page title]</span>
+                    </h1>
 
-    <footer wicket:id="footerPanel" />
+                    <div wicket:id="devPanel"></div>
+                    <div wicket:id="feedbackPanel"></div>
+                    <div>
+                        <wicket:child></wicket:child>
+                    </div>
+                </div>
+                <div id="sidebar">
+                    <div wicket:id="menuPanel"></div>
+                    <div wicket:id="virMenuPanel"></div>
+                </div>
+            </div>
+        </div>
+        <div id="footer">
+            <div id="footer_logos_left">
+                <a href="http://kir-dev.sch.bme.hu"><img src="images/kir-dev-logo.png" alt="kir-dev-logo" /></a>
+                <a href="http://design.sch.bme.hu"><img src="images/sds-logo.png" alt="sds-logo" /></a>
+            </div>
+            <div id="footer_text">
+                Kurzuscsere alkalmazás (coding: Kir-Dev | design: SDS)<br />
+                2012
+            </div>
+            <div id="footer_logos_right">
+                <a href="http://simonyi.bme.hu"><img src="images/simonyi-logo.png" alt="simonyi-logo" /></a>
+                <a href="http://sch.bme.hu"><img src="images/sch-logo.png" alt="sch-logo" /></a>
+            </div>
+        </div>
+    </div>
+    <div id="profile_dropdown_bg" onclick="outProfile()"></div>
 </body> 
 </html>

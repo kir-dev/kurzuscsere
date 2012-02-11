@@ -4,11 +4,14 @@ import hu.sch.kurzuscsere.WicketApplication;
 import hu.sch.kurzuscsere.authz.UserAuthorization;
 import hu.sch.kurzuscsere.domain.User;
 import hu.sch.kurzuscsere.logic.UserManager;
-import hu.sch.kurzuscsere.panel.FooterPanel;
-import hu.sch.kurzuscsere.panel.HeaderPanel;
+import hu.sch.kurzuscsere.panel.DevUserSwitchPanel;
+import hu.sch.kurzuscsere.panel.MenuPanel;
+import hu.sch.kurzuscsere.panel.VirMenuPanel;
 import hu.sch.kurzuscsere.session.AppSession;
 import org.apache.wicket.markup.html.WebPage;
-import org.apache.wicket.markup.html.panel.FeedbackPanel;
+import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.link.BookmarkablePageLink;
+import org.apache.wicket.markup.html.link.Link;
 
 /**
  *
@@ -27,10 +30,16 @@ public abstract class BasePage extends WebPage {
 
         loadUser();
 
-        add(new FeedbackPanel("feedbackPanel"));
-        add(new HeaderPanel("headerPanel", "KurzusCsere"));
-        add(new FooterPanel("footerPanel", "Powered by Kir-Dev and created by Balo & Kresshy"));
+        //add(new FeedbackPanel("feedbackPanel"));
+        //add(new HeaderPanel("headerPanel", "KurzusCsere"));
+        //add(new FooterPanel("footerPanel", "Powered by Kir-Dev and created by Balo & Kresshy"));
 
+        add(new DevUserSwitchPanel("devPanel"));
+
+        add(new Label("inPageTitle", getPageTitle()));
+        add(new BookmarkablePageLink<HomePage>("appNameLink", HomePage.class));
+        add(new MenuPanel("menuPanel"));
+        add(new VirMenuPanel("virMenuPanel"));
     }
 
     private void loadUser() {
@@ -62,4 +71,6 @@ public abstract class BasePage extends WebPage {
     public AppSession getSession() {
         return (AppSession) super.getSession();
     }
+
+    protected abstract String getPageTitle();
 }

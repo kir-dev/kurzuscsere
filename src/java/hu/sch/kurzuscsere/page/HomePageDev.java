@@ -12,7 +12,11 @@ public class HomePageDev extends BasePage {
     protected void onInitialize() {
         super.onInitialize();
 
-        //add(new LastPairings("lastPairingsPanel"));
         add(new LastRequestsPanel("lastRequestsPanel"));
+    }
+
+    @Override
+    protected String getPageTitle() {
+        return "Kezdőlap (Új)";
     }
 }

@@ -4,11 +4,15 @@
     <head><title>Wicket Example</title></head>
     <body>
         <wicket:panel>
-            <a wicket:id="devPanelSwitcher" href="#">[user dev panel show / hide]</a>
 
+            <h2 class="table-head">
+                <span class="table-title">Felhasználó adatok</span>
+                <span class="table-link">
+                    <a href="#" wicket:id="devPanelSwitcher">Mutat / rejt</a>
+                </span>
+            </h2>
             <div wicket:id="formContainer">
                 <form wicket:id="changeDevUser">
-                    SSO adatok: <br/>
                     <table>
                         <tr>
                             <td>login nick:</td>

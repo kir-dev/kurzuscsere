@@ -40,7 +40,7 @@ public class WicketApplication extends WebApplication {
         super.init();
 
         //getApplicationSettings().setPageExpiredErrorPage(PageExpiredError.class);
-        getPageSettings().setAutomaticMultiWindowSupport(false);
+        //getMarkupSettings().setStripWicketTags(true); //test in dev mode
 
         //Ha dev módban vagyunk, akkor hozzáteszünk egy új filtert, ami mutatja
         //a render időket a log fájlban.

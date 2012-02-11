@@ -1,0 +1,23 @@
+/*
+    Application specific CSS which extends or replace the original "VIR design
+*/
+
+#container {
+    padding-top: 12px;
+}
+
+#container_header h1#appTitle a {
+    display: block;
+    height: 65px;
+    width: auto;
+    float: left;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    line-height: 65px;
+    padding-left: 58px;
+    background-image: url('../images/news_header_bg.png');
+    background-repeat: no-repeat;
+    background-position: left center;
+}

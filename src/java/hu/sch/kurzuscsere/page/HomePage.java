@@ -15,4 +15,9 @@ public class HomePage extends BasePage {
         add(new CourseChangePanel("courseChangePanel"));
         add(new UploadPanel("uploadPanel"));
     }
+
+    @Override
+    protected String getPageTitle() {
+        return "Kezdőlap";
+    }
 }
