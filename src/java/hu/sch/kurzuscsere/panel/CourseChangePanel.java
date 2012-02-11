@@ -2,24 +2,17 @@ package hu.sch.kurzuscsere.panel;
 
 import hu.sch.kurzuscsere.domain.CCRequest;
 import hu.sch.kurzuscsere.domain.Lesson;
-import hu.sch.kurzuscsere.domain.User;
 import hu.sch.kurzuscsere.logic.CourseManager;
 import hu.sch.kurzuscsere.logic.LessonManager;
 import hu.sch.kurzuscsere.logic.UserManager;
-import hu.sch.kurzuscsere.logic.db.DbHelper;
-import java.util.ArrayList;
+import hu.sch.kurzuscsere.session.AppSession;
 import java.util.List;
+import org.apache.wicket.Application;
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.markup.html.WebMarkupContainer;
-import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.form.Button;
-import org.apache.wicket.markup.html.form.ChoiceRenderer;
-import org.apache.wicket.markup.html.form.DropDownChoice;
-import org.apache.wicket.markup.html.form.Form;
-import org.apache.wicket.markup.html.form.RequiredTextField;
-import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.markup.html.form.*;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Panel;
@@ -35,7 +28,6 @@ import org.slf4j.LoggerFactory;
 public final class CourseChangePanel extends Panel {
 
     private CCRequest changeRequest;
-    private Lesson selectedLesson;
     private static final Logger log = LoggerFactory.getLogger(CourseChangePanel.class);
 
     public CourseChangePanel(String id) {
@@ -82,28 +74,18 @@ public final class CourseChangePanel extends Panel {
         rowPanel.add(addButton);
 
         final ChoiceRenderer cr = new ChoiceRenderer("name", "id");
-        final DropDownChoice<Lesson> ddc = new DropDownChoice<Lesson>("lessons", new PropertyModel<Lesson>(this, "selectedLesson"),
+        final DropDownChoice<Lesson> ddc = new DropDownChoice<Lesson>("lessons",
+                new PropertyModel<Lesson>(changeRequest, "lesson"),
                 LessonManager.getInstance().getLessons(), cr);
-        changeForm.add(ddc);
+        changeForm.add(ddc.setRequired(true));
         changeForm.add(new RequiredTextField("from", new PropertyModel(changeRequest, "fromCourse")));
         Button send = new Button("btn1", Model.of("Elküldés")) {
 
             @Override
             public void onSubmit() {
                 super.onSubmit();
-                
-//                User testUser = new User();
-//                
-//                testUser.setNick("TESTUSER");
-//                testUser.setName("Test User");
-//                testUser.setEmail("user@test.com");
-//                
-//                UserManager.getInstance().insertUser(DbHelper.getConnection(), testUser);
-                
-                Long idx = UserManager.getInstance().getUserId("TESTUSER");
-                
-                changeRequest.setUser(UserManager.getInstance().getUserById(idx));
-                changeRequest.setLesson(selectedLesson);
+
+                changeRequest.setUser(UserManager.getInstance().getUserById(getUserId()));
                 changeRequest.setStatus(CCRequest.Status.New);
 
                 CourseManager.getInstance().insertRequest(changeRequest);
@@ -113,6 +95,15 @@ public final class CourseChangePanel extends Panel {
         };
 
         changeForm.add(send);
+    }
 
+    @Override
+    public boolean isVisible() {
+        Long userId = getUserId();
+        return userId != null && userId > 0;
+    }
+
+    private Long getUserId() {
+        return ((AppSession) getSession()).getUserId();
     }
 }
