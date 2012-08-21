@@ -1,5 +1,6 @@
 package hu.sch.kurzuscsere.logic.db;
 
+import hu.sch.kurzuscsere.WicketApplication;
 import hu.sch.kurzuscsere.config.ConfigKeys;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -21,11 +22,15 @@ public abstract class DbHelper {
     private DbHelper() {
     }
 
-    public static synchronized final Connection getConnection() {
+    public static synchronized Connection getConnection() {
         Connection connection = null;
         try {
             InitialContext context = new InitialContext();
-            DataSource dataSource = (DataSource) context.lookup(ConfigKeys.JDBC_RES);
+            final String jdbcRes = WicketApplication.get().getInitParameter(ConfigKeys.PARAM_JDBC);
+            if (jdbcRes == null) {
+                throw new Exception(ConfigKeys.PARAM_JDBC +" parameter cannot be found in web.xml");
+            }
+            DataSource dataSource = (DataSource) context.lookup(jdbcRes);
             connection = dataSource.getConnection();
             if (connection == null) {
                 throw new Exception("connection is null");

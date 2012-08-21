@@ -12,26 +12,34 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class LoggerSetup {
 
+    private LoggerSetup() {
+    }
+
     /**
      * Betölti a logback konfigurációját
      *
      * @throws IllegalArgumentException Ha nem sikerült a konfiguráció betöltése
      */
-    public static final void configureLogging() {
-        String logbackFile = ConfigKeys.LOGBACK_CONF;
-        if (logbackFile == null || logbackFile.isEmpty()) {
-            String error = "Path to logging configuration file is undefined. "
-                    + "Missing key: ConfigKeys.LOGBACK_CONF";
-            System.err.println(error);
+    public static void configureLogging(final String fileName) {
+        String configDir = System.getProperty(ConfigKeys.JVM_PROP_CONF_DIR, "");
+
+        if (fileName == null || configDir.isEmpty()) {
+            String error = "Path to logging configuration file is undefined.";
             throw new IllegalArgumentException(error);
         }
+
+        if (!configDir.endsWith("/")) {
+            configDir += "/";
+        }
+
+        final String logbackFile = configDir + fileName;
         LoggerContext lc = (LoggerContext) LoggerFactory.getILoggerFactory();
 
         try {
             JoranConfigurator cfg = new JoranConfigurator();
             cfg.setContext(lc);
             lc.reset();
-            cfg.doConfigure(LoggerSetup.class.getResourceAsStream(logbackFile));
+            cfg.doConfigure(logbackFile);
         } catch (JoranException ex) {
             throw new IllegalArgumentException("Unable to configure logging", ex);
         } finally {

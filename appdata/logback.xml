@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
     <appender name="kurzcsereappender" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>/home/balo/kir-dev/kurzuscsere/logs/sch-kurzuscsere.log</file>
+        <file>/home/balo/kirdev/kurzuscsere.git/appdata/logs/sch-kurzuscsere.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- daily rollover -->
             <fileNamePattern>sch-kurzuscsere.%d{yyyy-MM-dd}.log</fileNamePattern>
@@ -17,7 +17,16 @@
         <appender-ref ref="kurzcsereappender" />
     </logger>
 
-    <root level="DEBUG">
+    <!-- console appender from here -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="debug">
+        <appender-ref ref="STDOUT" />
         <appender-ref ref="kurzcsereappender" />
     </root>
+
 </configuration>

@@ -6,9 +6,10 @@ package hu.sch.kurzuscsere.config;
  */
 public abstract class ConfigKeys {
 
-    public static final String JDBC_RES = "jdbc/KurzusCsereDb";
-    public static final String LOGBACK_CONF = "logback.xml";
-    public static final String JVM_PROP_ENVIRONMENT = "kurzuscsere.environment";
+    public static final String JVM_PROP_CONF_DIR = "kurzuscsere.configdir";
+    public static final String PARAM_ENVIRONMENT = "environment";
+    public static final String PARAM_JDBC = "jdbc";
+    public static final String PARAM_LOGBACK_FILE = "logback.file";
 
     private ConfigKeys() {
     }

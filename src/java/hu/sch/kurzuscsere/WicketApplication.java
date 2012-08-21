@@ -19,18 +19,11 @@ import org.slf4j.LoggerFactory;
  *
  * @author Kresshy
  * @author balo
- * @version
  */
 public class WicketApplication extends WebApplication {
 
-    private static final Logger log;
+    private static Logger log;
     private UserAuthorization authorizationComponent;
-
-    static {
-        //setup logging
-        LoggerSetup.configureLogging();
-        log = LoggerFactory.getLogger(WicketApplication.class);
-    }
 
     public WicketApplication() {
     }
@@ -38,6 +31,9 @@ public class WicketApplication extends WebApplication {
     @Override
     protected void init() {
         super.init();
+
+        LoggerSetup.configureLogging(get().getInitParameter(ConfigKeys.PARAM_LOGBACK_FILE));
+        log = LoggerFactory.getLogger(WicketApplication.class);
 
         //getApplicationSettings().setPageExpiredErrorPage(PageExpiredError.class);
         //getMarkupSettings().setStripWicketTags(true); //test in dev mode
@@ -63,8 +59,8 @@ public class WicketApplication extends WebApplication {
 
     @Override
     public String getConfigurationType() {
-        String prop = System.getProperty(ConfigKeys.JVM_PROP_ENVIRONMENT, DEPLOYMENT);
-        if (prop.equals("DEV")) {
+        String prop = WicketApplication.get().getInitParameter(ConfigKeys.PARAM_ENVIRONMENT);
+        if (prop != null && prop.equals("DEV")) {
             return DEVELOPMENT;
         }
 
