@@ -145,4 +145,13 @@ public class LessonManager {
 
         return lessons;
     }
+    
+    
+    public void getChanges() {
+
+        List<Lesson> lessons = getLessons();
+        
+        
+    }
+    
 }

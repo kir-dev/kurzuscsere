@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
     <appender name="kurzcsereappender" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>/home/balo/kir-dev/kurzuscsere/logs/sch-kurzuscsere.log</file>
+        <file>c:\workspace\kurzuscsere.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- daily rollover -->
             <fileNamePattern>sch-kurzuscsere.%d{yyyy-MM-dd}.log</fileNamePattern>
