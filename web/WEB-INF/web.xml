@@ -7,6 +7,18 @@
             <param-name>applicationClassName</param-name>
             <param-value>hu.sch.kurzuscsere.WicketApplication</param-value>
         </init-param>
+        <init-param>
+            <param-name>environment</param-name>
+            <param-value>DEV</param-value>
+        </init-param>
+        <init-param>
+            <param-name>logback.file</param-name>
+            <param-value>logback.xml</param-value>
+        </init-param>
+        <init-param>
+            <param-name>jdbc</param-name>
+            <param-value>jdbc/KurzusCsereDb</param-value>
+        </init-param>
     </filter>
     <filter-mapping>
         <filter-name>WicketApplication</filter-name>
