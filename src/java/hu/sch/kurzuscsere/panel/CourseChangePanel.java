@@ -38,7 +38,7 @@ public final class CourseChangePanel extends Panel {
         super.onInitialize();
 
         changeRequest = new CCRequest();
-        changeRequest.getTo().add("");
+        changeRequest.getToCourses().add("");
 
         final Form changeForm = new Form("changePanel");
         add(changeForm);

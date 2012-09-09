@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+
+    <module-name>KurzusCsereApp</module-name>
+
     <filter>
         <filter-name>WicketApplication</filter-name>
         <filter-class>org.apache.wicket.protocol.http.WicketFilter</filter-class>
@@ -15,10 +18,6 @@
             <param-name>logback.file</param-name>
             <param-value>logback.xml</param-value>
         </init-param>
-        <init-param>
-            <param-name>jdbc</param-name>
-            <param-value>jdbc/KurzusCsereDb</param-value>
-        </init-param>
     </filter>
     <filter-mapping>
         <filter-name>WicketApplication</filter-name>
@@ -26,7 +25,7 @@
     </filter-mapping>
     <session-config>
         <session-timeout>
-            30
+            480
         </session-timeout>
     </session-config>
     <welcome-file-list>

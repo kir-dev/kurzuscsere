@@ -16,6 +16,9 @@ import org.apache.wicket.request.Request;
 import org.apache.wicket.request.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.wicketstuff.javaee.injection.JavaEEComponentInjector;
+import org.wicketstuff.javaee.naming.global.GlobalJndiNamingStrategy;
+import org.wicketstuff.javaee.naming.global.ModuleJndiNamingStrategy;
 
 /**
  *
@@ -34,6 +37,9 @@ public class WicketApplication extends WebApplication {
 
         LoggerSetup.configureLogging(get().getInitParameter(ConfigKeys.PARAM_LOGBACK_FILE));
         log = LoggerFactory.getLogger(WicketApplication.class);
+
+        //need for inject ejbs
+        getComponentInstantiationListeners().add(new JavaEEComponentInjector(this, new ModuleJndiNamingStrategy()));
 
         getMarkupSettings().setDefaultMarkupEncoding(DEFAULT_ENCODING);
         getRequestCycleSettings().setResponseRequestEncoding(DEFAULT_ENCODING);

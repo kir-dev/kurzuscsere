@@ -37,7 +37,7 @@ public class LastRequestsPanel extends Panel {
 
                 item.add(new Label("requestLessonName", sb.toString()));
                 item.add(new Label("requestCourseFrom", req.getFromCourse()));
-                item.add(getCourseToList(req.getTo()));
+                item.add(getCourseToList(req.getToCourses()));
             }
         };
 

@@ -69,7 +69,7 @@ public class CourseManager {
             //persist "change course to" list
             PreparedStatement stmtCCRequestToCourses = conn.prepareStatement(sqlCCRequestToCourses);
 
-            List<String> toCourses = req.getTo();
+            List<String> toCourses = req.getToCourses();
             for (String course : toCourses) {
                 if (course != null && !course.isEmpty()) {
                     stmtCCRequestToCourses.setLong(1, req.getId());
@@ -149,7 +149,7 @@ public class CourseManager {
                 //to
                 List<String> toList =
                         CourseManager.getInstance().getCcRequestToListById(conn, ccReq.getId());
-                ccReq.setTo(toList);
+                ccReq.setToCourses(toList);
 
                 results.add(ccReq);
             }
