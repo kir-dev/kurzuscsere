@@ -13,6 +13,7 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
+import org.apache.wicket.model.Model;
 
 /**
  *
@@ -34,6 +35,8 @@ public abstract class BasePage extends WebPage {
         add(new FeedbackPanel("feedbackPanel"));
 
         add(new DevUserSwitchPanel("devPanel"));
+
+        add(new Label("pageTitle", Model.of(getString("page.title"))));
 
         add(new Label("inPageTitle", getPageTitle()));
         add(new BookmarkablePageLink<HomePage>("appNameLink", HomePage.class));
