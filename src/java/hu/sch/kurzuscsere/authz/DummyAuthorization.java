@@ -29,8 +29,9 @@ package hu.sch.kurzuscsere.authz;
 
 import hu.sch.kurzuscsere.domain.User;
 import org.apache.wicket.Application;
-import org.apache.wicket.Request;
+import org.apache.wicket.RuntimeConfigurationType;
 import org.apache.wicket.protocol.http.WebApplication;
+import org.apache.wicket.request.Request;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,7 +43,7 @@ import org.slf4j.LoggerFactory;
  */
 public final class DummyAuthorization implements UserAuthorization {
 
-    public static User actualTestUser = new User();
+    public static final User TEST_USER = new User();
     /**
      * A logoláshoz szükséges logger.
      */
@@ -52,8 +53,8 @@ public final class DummyAuthorization implements UserAuthorization {
      * {@inheritDoc}
      */
     @Override
-    public void init(Application wicketApplication) {
-        if (wicketApplication.getConfigurationType().equals(WebApplication.DEPLOYMENT)) {
+    public void init(final Application wicketApplication) {
+        if (wicketApplication.getConfigurationType().equals(RuntimeConfigurationType.DEPLOYMENT)) {
             throw new IllegalStateException("Do not use dummy authz module in production environment!");
         }
 
@@ -64,21 +65,21 @@ public final class DummyAuthorization implements UserAuthorization {
      * {@inheritDoc}
      */
     @Override
-    public String getRemoteUser(Request wicketRequest) {
-        return actualTestUser.getNick();
+    public String getRemoteUser(final Request wicketRequest) {
+        return TEST_USER.getNick();
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public User getUserAttributes(Request wicketRequest) {
-        User user = new User();
+    public User getUserAttributes(final Request wicketRequest) {
+        final User user = new User();
 
-        user.setEmail(actualTestUser.getEmail());
+        user.setEmail(TEST_USER.getEmail());
         user.setNick(getRemoteUser(wicketRequest));
 
-        user.setName(actualTestUser.getName());
+        user.setName(TEST_USER.getName());
 
         return user;
     }

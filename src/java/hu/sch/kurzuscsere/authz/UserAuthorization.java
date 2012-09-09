@@ -29,7 +29,7 @@ package hu.sch.kurzuscsere.authz;
 
 import hu.sch.kurzuscsere.domain.User;
 import org.apache.wicket.Application;
-import org.apache.wicket.Request;
+import org.apache.wicket.request.Request;
 
 /**
  * Ez az interfész felelős a usernév és jogosultságok lekérdezéséért

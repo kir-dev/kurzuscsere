@@ -31,8 +31,7 @@ import hu.sch.kurzuscsere.domain.User;
 import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.wicket.Application;
-import org.apache.wicket.Request;
-import org.apache.wicket.protocol.http.WebRequest;
+import org.apache.wicket.request.Request;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -68,7 +67,7 @@ public final class AgentBasedAuthorization implements UserAuthorization {
      * {@inheritDoc}
      */
     @Override
-    public void init(Application wicketApplication) {
+    public void init(final Application wicketApplication) {
         log.warn("Agent based authorization mode successfully initiated.");
     }
 
@@ -76,15 +75,16 @@ public final class AgentBasedAuthorization implements UserAuthorization {
      * {@inheritDoc}
      */
     @Override
-    public User getUserAttributes(Request wicketRequest) {
-        HttpServletRequest servletRequest =
-                ((WebRequest) wicketRequest).getHttpServletRequest();
-        User user = new User();
+    public User getUserAttributes(final Request wicketRequest) {
+        final HttpServletRequest servletRequest =
+                (HttpServletRequest) wicketRequest.getContainerRequest();
+
+        final User user = new User();
 
         user.setEmail(getSingleValuedStringAttribute(servletRequest, EMAIL_ATTRNAME));
         user.setNick(getRemoteUser(wicketRequest));
 
-        StringBuilder nameSb =
+        final StringBuilder nameSb =
                 new StringBuilder(getSingleValuedStringAttribute(servletRequest, LASTNAME_ATTRNAME));
         nameSb.append(" ").append(getSingleValuedStringAttribute(servletRequest, FIRSTNAME_ATTRNAME));
         user.setName(nameSb.toString());
@@ -95,8 +95,8 @@ public final class AgentBasedAuthorization implements UserAuthorization {
     /**
      * {@inheritDoc}
      */
-    private String getSingleValuedStringAttribute(HttpServletRequest request, String attrName) {
-        Set<String> attrSet = (Set<String>) request.getAttribute(attrName);
+    private String getSingleValuedStringAttribute(final HttpServletRequest request, final String attrName) {
+        final Set<String> attrSet = (Set<String>) request.getAttribute(attrName);
 
         if (attrSet != null) {
             for (String string : attrSet) {
@@ -111,7 +111,7 @@ public final class AgentBasedAuthorization implements UserAuthorization {
      * {@inheritDoc}
      */
     @Override
-    public String getRemoteUser(Request wicketRequest) {
-        return ((WebRequest) wicketRequest).getHttpServletRequest().getRemoteUser();
+    public String getRemoteUser(final Request wicketRequest) {
+        return ((HttpServletRequest) wicketRequest.getContainerRequest()).getRemoteUser();
     }
 }

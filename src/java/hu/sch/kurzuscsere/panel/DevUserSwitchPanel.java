@@ -4,7 +4,7 @@ import hu.sch.kurzuscsere.authz.DummyAuthorization;
 import hu.sch.kurzuscsere.domain.User;
 import hu.sch.kurzuscsere.logic.UserManager;
 import hu.sch.kurzuscsere.session.AppSession;
-import org.apache.wicket.Application;
+import org.apache.wicket.RuntimeConfigurationType;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.markup.html.WebMarkupContainer;
@@ -19,7 +19,7 @@ import org.apache.wicket.model.PropertyModel;
  */
 public class DevUserSwitchPanel extends Panel {
 
-    public DevUserSwitchPanel(String id) {
+    public DevUserSwitchPanel(final String id) {
         super(id);
     }
 
@@ -37,8 +37,8 @@ public class DevUserSwitchPanel extends Panel {
                 super.onSubmit();
 
                 UserManager.getInstance().updateUserAttributes(getDevUser());
-                Long userId = UserManager.getInstance().getUserId(getDevUser().getNick());
-                ((AppSession)getSession()).setUserId(userId);
+                final Long userId = UserManager.getInstance().getUserId(getDevUser().getNick());
+                ((AppSession) getSession()).setUserId(userId);
             }
         };
 
@@ -55,11 +55,10 @@ public class DevUserSwitchPanel extends Panel {
         add(new AjaxLink("devPanelSwitcher") {
 
             @Override
-            public void onClick(AjaxRequestTarget target) {
+            public void onClick(final AjaxRequestTarget target) {
 
                 changeDevUserFrm.setVisible(!changeDevUserFrm.isVisible());
-
-                target.addComponent(formContainer);
+                AjaxRequestTarget.get().add(formContainer);
             }
         });
 
@@ -67,10 +66,10 @@ public class DevUserSwitchPanel extends Panel {
 
     @Override
     public boolean isVisible() {
-        return getApplication().getConfigurationType().equals(Application.DEVELOPMENT);
+        return getApplication().getConfigurationType().equals(RuntimeConfigurationType.DEVELOPMENT);
     }
 
     private User getDevUser() {
-        return DummyAuthorization.actualTestUser;
+        return DummyAuthorization.TEST_USER;
     }
 }

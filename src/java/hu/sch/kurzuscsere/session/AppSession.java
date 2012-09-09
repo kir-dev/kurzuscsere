@@ -1,11 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hu.sch.kurzuscsere.session;
 
-import org.apache.wicket.Request;
 import org.apache.wicket.protocol.http.WebSession;
+import org.apache.wicket.request.Request;
 
 /**
  *
@@ -19,7 +15,7 @@ public class AppSession extends WebSession {
         return userId;
     }
 
-    public synchronized void setUserId(Long userId) {
+    public synchronized void setUserId(final Long userId) {
         this.userId = userId;
         dirty();
     }
@@ -31,7 +27,7 @@ public class AppSession extends WebSession {
         return false;
     }
 
-    public AppSession(Request request) {
+    public AppSession(final Request request) {
         super(request);
     }
 }
