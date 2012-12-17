@@ -10,8 +10,8 @@
     <name>kurzuscsere</name>
 
     <properties>
-        <wicket.version>1.5.8</wicket.version>
-        <wicketstuff.version>1.5.8</wicketstuff.version>
+        <wicket.version>1.5.9</wicket.version>
+        <wicketstuff.version>1.5.9</wicketstuff.version>
         <hibernate.version>4.1.6.Final</hibernate.version>
         <logback.version>1.0.6</logback.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
