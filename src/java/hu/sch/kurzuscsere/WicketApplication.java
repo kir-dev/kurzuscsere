@@ -17,7 +17,6 @@ import org.apache.wicket.request.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wicketstuff.javaee.injection.JavaEEComponentInjector;
-import org.wicketstuff.javaee.naming.global.GlobalJndiNamingStrategy;
 import org.wicketstuff.javaee.naming.global.ModuleJndiNamingStrategy;
 
 /**
