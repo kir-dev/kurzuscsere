@@ -48,7 +48,7 @@ public final class CourseChangePanel extends Panel {
         changeForm.add(rowPanel);
 
         final ListView<String> lv = new ListView<String>("rows",
-                new PropertyModel<List<String>>(changeRequest, "to")) {
+                new PropertyModel<List<String>>(changeRequest, "toCourses")) {
 
             @Override
             protected void populateItem(ListItem<String> item) {
