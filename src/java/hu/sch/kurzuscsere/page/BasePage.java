@@ -8,10 +8,10 @@ import hu.sch.kurzuscsere.panel.DevUserSwitchPanel;
 import hu.sch.kurzuscsere.panel.MenuPanel;
 import hu.sch.kurzuscsere.panel.VirMenuPanel;
 import hu.sch.kurzuscsere.session.AppSession;
+import javax.ejb.EJB;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
-import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.Model;
 
@@ -22,9 +22,8 @@ import org.apache.wicket.model.Model;
  */
 public abstract class BasePage extends WebPage {
 
-    public BasePage() {
-        super();
-    }
+    @EJB(name = "UserManager")
+    protected UserManager userManager;
 
     @Override
     protected void onInitialize() {
@@ -45,24 +44,26 @@ public abstract class BasePage extends WebPage {
     }
 
     private void loadUser() {
-        String remUser = getAuthorizationComponent().getRemoteUser(getRequest());
+        final String remUser = getAuthorizationComponent().getRemoteUser(getRequest());
 
         if (remUser == null || remUser.equals("")) { // no sso login
             getSession().setUserId(0L);
             return;
         }
 
-        Long userId = UserManager.getInstance().getUserId(remUser);
-        if (userId.equals(0L) || !userId.equals(getSession().getUserId())) {
-            // nem egyezik, írjuk felül az eddig ismertet
-            User userAttrs =
-                    getAuthorizationComponent().getUserAttributes(getRequest());
-            if (userAttrs != null) {
-                userAttrs.setId(userId);
-                UserManager.getInstance().updateUserAttributes(userAttrs);
-            }
-            getSession().setUserId(userId);
+        User user = userManager.getUserFromLoginName(remUser);
+        if (user == null) {
+            user = new User();
         }
+
+        final User userAttrs = getAuthorizationComponent().getUserAttributes(getRequest());
+        if (userAttrs != null) {
+            user.setEmail(userAttrs.getEmail());
+            user.setName(userAttrs.getName());
+            user = userManager.merge(user);
+        }
+
+        getSession().setUserId(user.getId());
     }
 
     protected UserAuthorization getAuthorizationComponent() {
