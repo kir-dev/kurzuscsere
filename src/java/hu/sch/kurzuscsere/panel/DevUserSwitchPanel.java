@@ -4,6 +4,7 @@ import hu.sch.kurzuscsere.authz.DummyAuthorization;
 import hu.sch.kurzuscsere.domain.User;
 import hu.sch.kurzuscsere.logic.UserManager;
 import hu.sch.kurzuscsere.session.AppSession;
+import javax.ejb.EJB;
 import org.apache.wicket.RuntimeConfigurationType;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -19,6 +20,9 @@ import org.apache.wicket.model.PropertyModel;
  */
 public class DevUserSwitchPanel extends Panel {
 
+    @EJB(name = "UserManager")
+    private UserManager userManager;
+
     public DevUserSwitchPanel(final String id) {
         super(id);
     }
@@ -31,14 +35,12 @@ public class DevUserSwitchPanel extends Panel {
         add(formContainer.setOutputMarkupId(true));
 
         final Form changeDevUserFrm = new Form("changeDevUser") {
-
             @Override
             protected void onSubmit() {
                 super.onSubmit();
 
-                UserManager.getInstance().updateUserAttributes(getDevUser());
-                final Long userId = UserManager.getInstance().getUserId(getDevUser().getNick());
-                ((AppSession) getSession()).setUserId(userId);
+                final User user = userManager.merge(getDevUser());
+                ((AppSession) getSession()).setUserId(user.getId());
             }
         };
 
@@ -53,7 +55,6 @@ public class DevUserSwitchPanel extends Panel {
                 "email")));
 
         add(new AjaxLink("devPanelSwitcher") {
-
             @Override
             public void onClick(final AjaxRequestTarget target) {
 

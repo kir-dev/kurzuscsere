@@ -3,9 +3,7 @@ package hu.sch.kurzuscsere.domain;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -20,9 +18,8 @@ public class User implements Serializable {
     private static final long serialVersionUID = 1L;
     //
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
-    @SequenceGenerator(name = "user_seq", sequenceName = "user_seq")
-    private Long id;
+    @GeneratedValue
+    private long id;
     private String nick;
     private String name;
     private String email;
@@ -30,7 +27,7 @@ public class User implements Serializable {
     public User() {
     }
 
-    public User(final Long id, final String nick, final String name, final String email) {
+    public User(final long id, final String nick, final String name, final String email) {
         this.id = id;
         this.nick = nick;
         this.name = name;
@@ -40,14 +37,14 @@ public class User implements Serializable {
     /**
      * @return the id
      */
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(final Long id) {
+    public void setId(final long id) {
         this.id = id;
     }
 
