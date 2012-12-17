@@ -7,11 +7,17 @@ import hu.sch.kurzuscsere.logic.LessonManager;
 import hu.sch.kurzuscsere.logic.UserManager;
 import hu.sch.kurzuscsere.session.AppSession;
 import java.util.List;
+import javax.ejb.EJB;
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.markup.html.WebMarkupContainer;
-import org.apache.wicket.markup.html.form.*;
+import org.apache.wicket.markup.html.form.Button;
+import org.apache.wicket.markup.html.form.ChoiceRenderer;
+import org.apache.wicket.markup.html.form.DropDownChoice;
+import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.RequiredTextField;
+import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Panel;
@@ -26,6 +32,8 @@ import org.slf4j.LoggerFactory;
  */
 public final class CourseChangePanel extends Panel {
 
+    @EJB(name = "UserManager")
+    private UserManager userManager;
     private CCRequest changeRequest;
     private static final Logger log = LoggerFactory.getLogger(CourseChangePanel.class);
 
@@ -84,7 +92,7 @@ public final class CourseChangePanel extends Panel {
             public void onSubmit() {
                 super.onSubmit();
 
-                changeRequest.setUser(UserManager.getInstance().getUserById(getUserId()));
+                changeRequest.setUser(userManager.find(getUserId()));
                 changeRequest.setStatus(CCRequest.Status.New);
 
                 CourseManager.getInstance().insertRequest(changeRequest);

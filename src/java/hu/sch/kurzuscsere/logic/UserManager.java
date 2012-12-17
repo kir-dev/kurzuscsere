@@ -1,11 +1,10 @@
 package hu.sch.kurzuscsere.logic;
 
 import hu.sch.kurzuscsere.domain.User;
-import hu.sch.kurzuscsere.logic.db.DbHelper;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,52 +12,34 @@ import org.slf4j.LoggerFactory;
  *
  * @author balo
  */
+@Stateless
 public class UserManager {
 
+    @PersistenceContext
+    private EntityManager em;
     private static final Logger log = LoggerFactory.getLogger(UserManager.class);
-
-    private UserManager() {
-    }
-
-    public synchronized static UserManager getInstance() {
-        return UserManagerHolder.INSTANCE;
-    }
-
-    private static class UserManagerHolder {
-
-        private static final UserManager INSTANCE = new UserManager();
-    }
 
     /**
      * Megkeresi a login név alapján a lokális felhasználót
      *
-     * @param nick login név (remote user)
+     * @param loginName login név (remote user)
      * @return
      */
-    public Long getUserId(final String nick) {
-        Long uid = 0L;
+    public User getUserFromLoginName(final String loginName) {
+        User user = null;
 
-        Connection conn = DbHelper.getConnection();
-        if (conn == null) {
-            return uid;
-        }
-
-        String sql = "SELECT id FROM users WHERE usr_nick = ?";
         try {
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, nick);
-            ResultSet res = stmt.executeQuery();
-            if (res.next()) {
-                uid = res.getLong("id");
-            }
-            stmt.close();
-            //
-            conn.close();
-        } catch (SQLException ex) {
-            log.error("Can't get user id from login name: " + nick, ex);
+            final TypedQuery<User> query = em.createQuery("SELECT u from User u WHERE nick=:loginName",
+                    User.class);
+
+            query.setParameter("loginName", loginName);
+            user = query.getSingleResult();
+        } catch (Exception ex) {
+            log.error("Couldn't find user with the given loginName =" + loginName
+                    + "; message=" + ex.getMessage());
         }
 
-        return uid;
+        return user;
     }
 
     /**
@@ -69,99 +50,35 @@ public class UserManager {
      * @param uid user id
      * @return
      */
-    public User getUserById(final Long uid) {
+    public User find(final Long uid) {
         User user = null;
 
-        Connection conn = DbHelper.getConnection();
-        if (conn == null) {
-            return user;
-        }
-
-        String sql = "SELECT * FROM users WHERE id = ?";
-        try {
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setLong(1, uid);
-            ResultSet res = stmt.executeQuery();
-            if (res.next()) {
-                user = new User(uid, res.getString("usr_nick"),
-                        res.getString("usr_name"),
-                        res.getString("usr_email"));
+        if (uid != null) {
+            try {
+                user = em.find(User.class, uid);
+            } catch (IllegalArgumentException ex) {
+                log.error("Illegal uid in find=" + uid + "; message=" + ex.getMessage());
             }
-            stmt.close();
-            //
-            conn.close();
-        } catch (SQLException ex) {
-            log.error("Can't get user from id: " + uid, ex);
         }
 
         return user;
     }
 
     /**
-     * Frissíti a felhasználó attribútumait. Ha a lokális felhasználó még nem
-     * létezik, akkor létrehozza.
+     * Frissíti az átadott felhasználót az adatbázisban. Ha a lokális
+     * felhasználó még nem létezik, akkor létrehozza.
      *
-     * @param userAttrs
+     * @param user
      */
-    public void updateUserAttributes(final User userAttrs) {
-        //
-        Connection conn = DbHelper.getConnection();
-        if (conn == null) {
-            return;
-        }
+    public User merge(final User user) {
+        User u = null;
 
-        if (getUserId(userAttrs.getNick()).equals(0L)) {
-            //nincs még mentve -> insert
-            insertUser(conn, userAttrs);
-        } else {
-
-            String sql = "UPDATE users SET usr_email = ?,"
-                    + "usr_name = ? "
-                    + "WHERE usr_nick = ?";
-
-            try {
-                PreparedStatement stmt = conn.prepareStatement(sql);
-                stmt.setString(1, userAttrs.getEmail());
-                stmt.setString(2, userAttrs.getName());
-                stmt.setString(3, userAttrs.getNick());
-                stmt.executeUpdate();
-                stmt.close();
-                //
-                conn.close();
-            } catch (SQLException ex) {
-                log.error("Can't update user: " + userAttrs, ex);
-            }
-        }
-
-    }
-
-    /**
-     * Beszúrja az átadott felhasználót az adatbázisba
-     *
-     * @param conn
-     * @param u
-     */
-    public void insertUser(final Connection conn, final User u) {
-
-        String sql = "INSERT INTO users(usr_nick, usr_name, usr_email) VALUES(?, ?, ?);";
         try {
-            if (u.getNick() == null || u.getNick().equals("") || u.getEmail() == null
-                    || u.getEmail().equals("") || u.getName() == null
-                    || u.getName().equals("")) {
-
-                throw new Exception();
-            }
-
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, u.getNick());
-            stmt.setString(2, u.getName());
-            stmt.setString(3, u.getEmail());
-            stmt.executeUpdate();
-            stmt.close();
-            //
-            conn.close();
-        } catch (Exception ex) {
-            log.error("Can't insert user: " + u, ex);
+            u = em.merge(user);
+        } catch (IllegalArgumentException ex) {
+            log.error("Illegal user in merge=" + user + "; message=" + ex.getMessage());
         }
+
+        return u;
     }
 }
